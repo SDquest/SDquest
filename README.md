@@ -1,13 +1,13 @@
 # SDquest
 Version: 0.1
 
-SDquest is a program for detection of segmental duplications in large genomes.
+SDquest is a program for detection of segmental duplications (SDs) in large genomes. SDquest detects and decomposes mosaic SDs into elementary SDs, and further constructs the breakpoint graph of these mosaic SDs.
 
 # Install
-See the docs/INSTALL.md file.
+See the INSTALL.md file.
 
 # Usage
-See the docs/USAGE.md file.
+See the USAGE.md file.
 
 # Publications
 Lianrong Pu, Yu Lin and Pavel Pevzner, "Detection and analysis of ancient segmental duplications in mammalian genomes", Submitted.
