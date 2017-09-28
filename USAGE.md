@@ -20,7 +20,7 @@ Currently, SDquest can handle the following human and mouse genomes downloaded f
 Please download both the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” in one of the above links. Unzip these two files and copy all the chromosome files into the directory “GenomeData” under the “SDquest” main directory. Note that the current version SDquest only allows you to handle one genome (in the “GenomeData” folder) at a time.
 
 # Output from SDquest:
-The output file of SDquest can be found in the “SDquestResult” folder under the “SDquest” main directory. There are 2 output files of SDquest.
+The output files of SDquest can be found in the “SDquestResult” folder under the “SDquest” main folder. There are two output files of SDquest.
 
 (1) Pairwise_SDs.txt
 
