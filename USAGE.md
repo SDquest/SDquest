@@ -9,7 +9,7 @@ Download SDquest.zip file and unzip it. The excutable script "SDquest.sh" will b
 For example, “./SDquest.sh human 20” means running SDquest on the human genome with 20 CPUs.
 
 
-# Download genome datesets as input
+# Download genome datesets as input:
 Currently, SDquest can handle the following human and mouse genomes downloaded from the UCSC Genome Browser.
 
 - Human genome (GRCH37/hg19) : http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/
