@@ -26,7 +26,7 @@ The output files of SDquest can be found in the “SDquestResult” folder under
 
 This file contains all pairwise alignments identified by SDquest with similarities no less than 70%. Each line in the file represents a pairwise alignment. The format of each line is shown below.
 
-“index  cigar  segA  segB  chrA  startA  endA  chrB  startB  endB  Match  Mismath  sGap  strand1  strand2  identity”
+“index  cigar  segA  segB  chrA  startA  endA  chrB  startB  endB  Match  Mismath  sGap  strandA  strandB  identity”
 - index: the index of pairwise alignment
 - cigar: alignments between non-common repeats sequences in this pairwise alignment
 - segA: index of the first segment
