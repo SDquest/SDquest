@@ -1,9 +1,10 @@
 # SDquest usage:
  ./SDquest.sh type n
 - type: human or mouse, indicating which genome will be analyzed by SDquest
-- n: an integer indicating the number of CPUs used by SDquest
+- n: an integer, indicating the number of CPUs used by SDquest
 
-For example, “./SDquest.sh human 20” means running SDquest on the human genome with 20 CPUs. 
+For example, “./SDquest.sh human 20” means running SDquest on the human genome with 20 CPUs.
+
 
 # Download genome datesets as input
 Currently, SDquest can handle the following human and mouse genomes downloaded from the UCSC Genome Browser.
