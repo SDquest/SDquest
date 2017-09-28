@@ -1,4 +1,7 @@
 # SDquest usage:
+
+Download SDquest.zip file and unzip it. The excutable script "SDquest.sh" will be under the "SDquest" main folder.
+
  ./SDquest.sh type n
 - type: human or mouse, indicating which genome will be analyzed by SDquest
 - n: an integer, indicating the number of CPUs used by SDquest
@@ -49,6 +52,6 @@ This file contains positions of all mosaic SDs in the genome. Each line represen
 - chr: the chromosome index of the mosaic SD
 - start: the start position of this mosaic SD
 - end: the end position of this mosaic SD
-- B1 B2 ...: the linearly ordered list of SDblocks in this mosaic SD
+- B1 B2 ...: the ordered list of SDblocks in this mosaic SD
 
 
