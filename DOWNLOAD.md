@@ -2,7 +2,7 @@
 SDquest is available for Linux platform. Windows and Mac support is not guaranteed.
 
 # SDquest download
-SDquest is written in Java and requires Java Runtime Environment. All the code is available in Code file.
+SDquest is written in Java and requires Java Runtime Environment. All the code is available in "Code" file.
 
 # Requirements
 
