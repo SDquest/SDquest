@@ -30,27 +30,25 @@ This file contains all pairwise alignments identified by SDquest with similariti
 
 “index  cigar  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  Indel  identity”
 - index: the index of pairwise alignment
-- cigar: alignments between non-common repeats sequences in this pairwise alignment
-- segA: index of the first segment
-- segB: index of the second segment
+- cigar: alignments between unique sequences (non-common repeat and non-tandem repeats) in this pairwise alignment
 - chrA: the chromosome index of the first segment
 - startA: the start position of the first segment
 - endA: the end position of the first segment
+- strandA: the strandness of the first segment
 - chrB: the chromosome index of the second segment
 - startB: the start position of the second segment
 - endB: the end position of the second segment
+- strandB: the strandness of the second segment
 - Match: the number of matches in the alignment
 - Mismatch: the number of mismatches in the alignment
-- sGap: the number of gaps in the alignment
-- strandA: the strandness of the first segment
-- strandB: the strandness of the second segment
+- Indel: the number of insertions/deletions in the alignment
 - identity: the overall similarity of the alignment 
 
-(2) Mosaic_SDs.txt
+(2) MosaicSDs_SDblockIndexes.txt
 
 This file contains positions of all mosaic SDs in the genome. Each line represents position of one mosaic SD and the SDblocks in this mosaic SD. Each SDblock is represented by a distinct number as Bi. The format of each line is shown as follows.
 
-“chr  start  end  B1  B2 ...”
+“chr  start  end :  B1  B2 ...”
 - chr: the chromosome index of the mosaic SD
 - start: the start position of this mosaic SD
 - end: the end position of this mosaic SD
