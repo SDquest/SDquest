@@ -22,13 +22,13 @@ Technically, SDquest can detect segmental duplications on any genome as long as 
 For the 5 genomes show above, the input genome sequence can be found in the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” downloaded from one of the above links. Unzip these two files and copy all the chromosome files into the folder “Genome” and "maskeGenome" under the “Code” directory. Note that the current version SDquest only allows you to handle one genome (in the “GenomeData” folder) at a time.
 
 # Output from SDquest:
-The output files of SDquest can be found in the “SDquestResult” folder under the “SDquest” main folder. There are two output files of SDquest.
+There are two output files of SDquest “Pairwise_SDs.txt” and “MosaicSDs_SDblockIndexes.txt”. They can be found under the “Code” folder. 
 
 (1) Pairwise_SDs.txt
 
 This file contains all pairwise alignments identified by SDquest with similarities no less than 70%. Each line in the file represents a pairwise alignment. The format of each line is shown below.
 
-“index  cigar  segA  segB  chrA  startA  endA  chrB  startB  endB  Match  Mismath  sGap  strandA  strandB  identity”
+“index  cigar  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  Indel  identity”
 - index: the index of pairwise alignment
 - cigar: alignments between non-common repeats sequences in this pairwise alignment
 - segA: index of the first segment
