@@ -6,7 +6,7 @@ SDquest is written in Java and requires Java Runtime Environment. All the code i
 
 Information of mosaic SDs for human, gorilla and mouse gneomes are available in "Mosaic_SDs" file, and information of pairwise SDs for human, gorilla and mouse genomes are available in the "Pairwise_SDs" file. 
 
-Note that, pairwise SDs for the "mm10" assembly of mouse genome are contained in two files "PairwiseSDs_Mouse_mm10_a.zip" and "PairwiseSDs_Mouse_mm10_b.zip" since it is too big for uploading in a single file.
+Note that, pairwise SDs for the "mm10" assembly of mouse genome are contained in two files "PairwiseSDs_Mouse_mm10_a.zip" and "PairwiseSDs_Mouse_mm10_b.zip" since the pairwise SDs for the "mm10" assembly of mouse genome is too big to upload in a single file.
 
 # Requirements
 
