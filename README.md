@@ -1,10 +1,10 @@
 # SDquest
 Version: 0.1
 
-SDquest is a program for detection of segmental duplications (SDs) in large genomes. SDquest detects and decomposes mosaic SDs into elementary SDs, and further constructs the breakpoint graph of these mosaic SDs.
+SDquest is a program for detection and analysis of segmental duplications (SDs) in large genomes. SDquest detects and decomposes mosaic SDs into elementary SDs, and further constructs the breakpoint graph of these mosaic SDs.
 
 # Download
-Download SDquest.zip file and refer to the Download.md file.
+Please download code in the "Code" folder, and download information of pairwise SDs (mosaic SDs) for human, gorilla and mouse genome in "Pairwise_SDs" ("Mosaic_SDs") folder. Refer to the Download.md file for details.
 
 # Usage
 See the USAGE.md file.
@@ -18,6 +18,8 @@ SDquest package includes some third-party software:
 - DSK [https://gatb.inria.fr/software/dsk]
 
 - LASTZ [https://github.com/lastz/lastz]
+
+- Tandem Repeats Finder [http://tandem.bu.edu/trf/trf.html]
     
 # License
 
