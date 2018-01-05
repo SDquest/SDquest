@@ -4,15 +4,15 @@ java ChangeFormat
 ./TRFinder/trf409.linux64 genome.masked.txt 2 7 7 80 10 50 500 -f -d -h -ngs > genome.masked.info
 javac masktandemRepeats.java
 java masktandemRepeats genome.masked.txt genome.masked.info genome.masked_all.fasta 
-./dsk/dsk -verbose 0 -file genome.masked_all.fasta -kmer-size $argv[2] -abundance-min 2 -out genome_Kmer_2.h5
+./dsk/dsk -verbose 0 -file genome.masked_all.fasta -kmer-size 25 -abundance-min 2 -out genome_Kmer_2.h5
 ./dsk/dsk2ascii -verbose 0 -file genome_Kmer_2.h5 -out genome_Kmer_2.txt
 sort -k 1 genome_Kmer_2.txt > genome_Kmer_2.sorted.txt
 javac FrequencyLine.java
-java FrequencyLine genome_Kmer_2.sorted.txt genome.masked_all.fasta FrequencyLine.txt $argv[2]
+java FrequencyLine genome_Kmer_2.sorted.txt genome.masked_all.fasta FrequencyLine.txt 25
 javac CombineLine.java
 java CombineLine FrequencyLine.txt CombineLine.txt
 javac GetAllSCSegs.java
-java GetAllSCSegs genome.masked_all.fasta CombineLine.txt AllSegsOfSCN_CRMasked.fasta AllSegsOfSCN_CRRemoved.fasta $argv[2]
+java GetAllSCSegs genome.masked_all.fasta CombineLine.txt AllSegsOfSCN_CRMasked.fasta AllSegsOfSCN_CRRemoved.fasta 25
 javac PutativeSDsSeperated.java
 java PutativeSDsSeperated $argv[1]
 chmod 744 Lastz.sh
