@@ -39,7 +39,7 @@ public class changeFormatPairwise {
 			in=new Scanner(new File("SCN_LastzResult_500NonCR_NewExtendPec50.txt"));
 			BufferedWriter writer=new BufferedWriter (new FileWriter(new File("Pairwise_SDs.txt")));
 			in.nextLine(); String[] onepair; int indexW=0; double identity; int length1, length2;
-			writer.write("index  cigar  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  sGap  identity"); writer.newLine();
+			writer.write("index  cigar  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  Indel  identity"); writer.newLine();
 			while(in.hasNextLine()){
 				onepair=in.nextLine().trim().split("[\\p{Space}]+");
 				if(Integer.parseInt(onepair[4])!=Integer.parseInt(onepair[7])||Integer.parseInt(onepair[5])>Integer.parseInt(onepair[9])||Integer.parseInt(onepair[8])>Integer.parseInt(onepair[6])){
