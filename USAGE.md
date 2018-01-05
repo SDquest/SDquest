@@ -17,11 +17,9 @@ Currently, SDquest has detected and analyzed SDs on the following human, gorilla
 - Mouse genome (NCBI36/mm8): http://hgdownload.soe.ucsc.edu/goldenPath/mm8/bigZips/
 - Mouse genome (GRCm38/mm10): http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/
 
-Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. The input genome sequence can be given by a single or multiple fasta files, and should be named by "*.fa" and . 
+Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. The input genome sequence can be given by a single or multiple fasta files, and should be named by "*.fa" (say "chr1.fa") and put in the "Genome" folder. The corresponding genome sequence with common repeats are masked by 'N' should also be give by fasta format file, and named by "*.fa.masked" (say "chr1.fa.masked") and put in the "maskedGenome" folder. An example is shown in the "Genome" folder. 
 
-"genome.fa" and "genome.masked.fa" should be wrote in fasta format. Namely, each chromosome or contig is represented by two
-
-Please download both the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” in one of the above links. Unzip these two files and copy all the chromosome files into the directory “GenomeData” under the “SDquest” main directory. Note that the current version SDquest only allows you to handle one genome (in the “GenomeData” folder) at a time.
+For the 5 genomes show above, the input genome sequence can be found in the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” downloaded from one of the above links. Unzip these two files and copy all the chromosome files into the folder “Genome” and "maskeGenome" under the “Code” directory. Note that the current version SDquest only allows you to handle one genome (in the “GenomeData” folder) at a time.
 
 # Output from SDquest:
 The output files of SDquest can be found in the “SDquestResult” folder under the “SDquest” main folder. There are two output files of SDquest.
