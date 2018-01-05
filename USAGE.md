@@ -9,7 +9,7 @@ For example, “./SDquest.sh 20” means running SDquest with 20 CPUs.
 
 
 # Download genome datasets as input:
-Currently, SDquest has detected and analyzed SDs on the following human, gorilla and mouse genomes downloaded from the UCSC Genome Browser.
+Currently, SDquest has detected and analyzed segmental duplications on the following human, gorilla and mouse genomes downloaded from the UCSC Genome Browser.
 
 - Human genome (GRCH37/hg19) : http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/
 - Human genome (GRCH38/hg38): http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/
