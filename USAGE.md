@@ -17,7 +17,7 @@ Currently, SDquest has detected and analyzed SDs on the following human, gorilla
 - Mouse genome (NCBI36/mm8): http://hgdownload.soe.ucsc.edu/goldenPath/mm8/bigZips/
 - Mouse genome (GRCm38/mm10): http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/
 
-Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. The input genome sequence can be given by a single or multiple fasta files, and should be named by "**.fa". 
+Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. The input genome sequence can be given by a single or multiple fasta files, and should be named by "*.fa" and . 
 
 "genome.fa" and "genome.masked.fa" should be wrote in fasta format. Namely, each chromosome or contig is represented by two
 
