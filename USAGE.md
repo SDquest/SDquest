@@ -5,16 +5,21 @@ Download the "Code" folder. The excutable script "SDquest.sh" is under the "Code
  ./SDquest.sh CPU_NUMBER
 - CPU_NUMBER: an integer, indicating the number of CPUs used by SDquest
 
-For example, “./SDquest.sh human 20” means running SDquest on the human genome with 20 CPUs.
+For example, “./SDquest.sh 20” means running SDquest with 20 CPUs.
 
 
-# Download genome datesets as input:
-Currently, SDquest can handle the following human and mouse genomes downloaded from the UCSC Genome Browser.
+# Download genome datasets as input:
+Currently, SDquest has detected and analyzed SDs on the following human, gorilla and mouse genomes downloaded from the UCSC Genome Browser.
 
 - Human genome (GRCH37/hg19) : http://hgdownload.soe.ucsc.edu/goldenPath/hg19/bigZips/
 - Human genome (GRCH38/hg38): http://hgdownload.soe.ucsc.edu/goldenPath/hg38/bigZips/
+- Gorilla genome (GMSRT3/gorGor5): http://hgdownload.soe.ucsc.edu/goldenPath/gorGor5/bigZips/
 - Mouse genome (NCBI36/mm8): http://hgdownload.soe.ucsc.edu/goldenPath/mm8/bigZips/
 - Mouse genome (GRCm38/mm10): http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/
+
+Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. The input genome sequence can be given by a single or multiple fasta files, and should be named by "**.fa". 
+
+"genome.fa" and "genome.masked.fa" should be wrote in fasta format. Namely, each chromosome or contig is represented by two
 
 Please download both the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” in one of the above links. Unzip these two files and copy all the chromosome files into the directory “GenomeData” under the “SDquest” main directory. Note that the current version SDquest only allows you to handle one genome (in the “GenomeData” folder) at a time.
 
