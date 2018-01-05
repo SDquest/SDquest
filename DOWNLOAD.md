@@ -16,5 +16,5 @@ Note that, pairwise SDs for the "mm10" assembly of mouse genome are contained in
   
   -  Tandem Repeats Finder [http://tandem.bu.edu/trf/trf.html]
 
-The excutable files of DSK, LASTZ and Tandem Repeats Finder have been copied to the "dsk", "lastz-distrib" and "TRFinder" folders under the "Code" folder. If there is any issue in running DSK, LASTZ or Tandem Repeats Finder, please install DSK, LASTZ and Tandem Repeats Finder on your local machine and copy the excutable fils to the "dsk", "lastz-distrib" and "TRFinder" folders or contact lianrong.pu@gmail.com for more information.
+The excutable files of DSK, LASTZ and Tandem Repeats Finder have been copied to the "dsk", "lastz-distrib" and "TRFinder" folders under the "Code" folder. If there is any issue in running DSK, LASTZ or Tandem Repeats Finder, please install DSK, LASTZ and Tandem Repeats Finder on your local machine and copy the excutable files to the "dsk", "lastz-distrib" and "TRFinder" folders or contact lianrong.pu@gmail.com for more information.
  
