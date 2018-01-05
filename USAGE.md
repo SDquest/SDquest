@@ -1,10 +1,9 @@
 # SDquest usage:
 
-Download SDquest.zip file and unzip it. The excutable script "SDquest.sh" will be under the "SDquest" main folder.
+Download the "Code" folder. The excutable script "SDquest.sh" is under the "Code" folder.
 
- ./SDquest.sh type n
-- type: human or mouse, indicating which genome will be analyzed by SDquest
-- n: an integer, indicating the number of CPUs used by SDquest
+ ./SDquest.sh CPU_NUMBER
+- CPU_NUMBER: an integer, indicating the number of CPUs used by SDquest
 
 For example, “./SDquest.sh human 20” means running SDquest on the human genome with 20 CPUs.
 
