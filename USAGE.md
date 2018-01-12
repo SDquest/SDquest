@@ -59,4 +59,4 @@ This file contains positions of all mosaic SDs in the genome. Each line represen
 # Test Case
 A test case with 1 Mb simulated genome is attached inside the "Genome" and "maskedGenome" folder under the "Code" directory. If no additional genome data be added into the "Genome" and "maskedGenome" folder under the "Code" directory, SDquest default to run SDquest on this 1 Mb simulated genome. 
 
-In this 1 Mb simulated genome, there exist 4 mosaic SDs [A, B] 
+In this 1 Mb simulated genome, there exist 4 mosaic SDs \[A, B](start at position 100,000),\[A](start at position 300,000), \[-B,-A](start at position 600,000) and \[-B](start at position 850,000). A and B represent two SD-block with length 2000bp and 3000bp respectively.
