@@ -17,9 +17,9 @@ Currently, SDquest has detected and analyzed segmental duplications on the follo
 - Mouse genome (NCBI36/mm8): http://hgdownload.soe.ucsc.edu/goldenPath/mm8/bigZips/
 - Mouse genome (GRCm38/mm10): http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/
 
-To run SDquest on the 5 genomes shown above, please download both of the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” in one of the above links. Unzip these two files, you will find chromosome files in "chromFa" folder and the corresponding chromosome files with common repeats be masked by 'N' in the "chromFaMasked" folder. Copy chromosome files you would like to run in the "chromFa" folder into the folder "Genome" under the main "Code" directory, and copy the corresponding masked chromosome files in the "chromFaMasked" folder into the folder "maskedGenome" under the main "Code" directory. 
+To run SDquest on the 5 genomes shown above, please download both of the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” in one of the above links. Unzip these two files, you will find chromosome files in "chromFa" folder and the corresponding chromosome files with common repeats be masked by 'N' in the "chromFaMasked" folder. Copy chromosome files you would like to run in the "chromFa" folder into the folder "Genome" under the main "Code" directory, and copy the corresponding masked chromosome files in the "chromFaMasked" folder into the folder "maskedGenome" under the main "Code" directory. Note that, currently, there already exists a small test genome in the "Genome" and "maskedGenome" files for users to do test. To run SDquest on your own data, you should first delete the test genome from the "Genome" and "maskedGenome" first. 
 
-Note that the files in "Genome" folder should be named by "\*.fa" and the files in "maskedGenome" folder should be named by "\*.fa.masked". For human and mouse genomes, the pairwise SDs and mosaic SDs provided in this website are obtained by running SDquest on 22/19 autosomal chromosomals, X chromosomal and Y chromosomal. The current version SDquest only allows you to handle one genome (in the “Genome” and “maskedGenome” folder) at a time.
+Besides, files in "Genome" folder should be named by "\*.fa" and the files in "maskedGenome" folder should be named by "\*.fa.masked". For human and mouse genomes, the pairwise SDs and mosaic SDs provided in this website are obtained by running SDquest on 22/19 autosomal chromosomals, X chromosomal and Y chromosomal. The current version SDquest only allows you to handle one genome (in the “Genome” and “maskedGenome” folder) at a time.
 
 Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. 
 
@@ -56,4 +56,7 @@ This file contains positions of all mosaic SDs in the genome. Each line represen
 - end: the end position of this mosaic SD
 - B1 B2 ...: the ordered list of SDblocks in this mosaic SD
 
+# Test Case
+A test case with 1 Mb simulated genome is attached inside the "Genome" and "maskedGenome" folder under the "Code" directory. If no additional genome data be added into the "Genome" and "maskedGenome" folder under the "Code" directory, SDquest default to run SDquest on this 1 Mb simulated genome. 
 
+In this 1 Mb simulated genome, there exist 4 mosaic SDs [A, B] 
