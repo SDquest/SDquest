@@ -25,7 +25,9 @@ public class MosaicSDsBlockcompose {
 			}
 			
 			BufferedWriter writer=new BufferedWriter(new FileWriter(new File("MosaicSDs_SDblockIndexes.txt"))); 
-			writer.write("chr   start   end   SDblocksIndexes"); writer.newLine(); 
+			BufferedWriter writer2=new BufferedWriter(new FileWriter(new File("ElementarySD_Borders.txt"))); 
+			writer.write("index   chr   start   end   SDblocksIndexes"); writer.newLine(); 
+			writer2.write("index   chr   start   end    signedtag   tag	mosaicindex"); writer2.newLine(); 
 			
 			in = new Scanner(new File("ElementSDs_LengthAndMulti.fasta")); in.nextLine(); 
 			ArrayList<ArrayList<int[]>> elements=new ArrayList<ArrayList<int[]>>();
@@ -43,8 +45,10 @@ public class MosaicSDsBlockcompose {
 //			System.out.println("element SDs size!  "+index);
 			
 			int[] SDblock=new int[index]; 
+			int[] SDblockAssociatedMosaic=new int[index]; 
 			for(int i=0;i<SDblock.length;i++){
-				SDblock[i]=0; 
+				SDblock[i]=0;
+				SDblockAssociatedMosaic[i]=-1;
 			}
 			in = new Scanner(new File("blocks.fasta")); String temp; index=0; int length; int elementSD;
 			while(in.hasNextLine()){
@@ -87,6 +91,7 @@ public class MosaicSDsBlockcompose {
 					if(elements.get(chr).get(i)[0]>=start&&elements.get(chr).get(i)[1]<=end){
 						if(SDblock[elements.get(chr).get(i)[2]]!=0){
 							tempSD.add(SDblock[elements.get(chr).get(i)[2]]);
+							SDblockAssociatedMosaic[elements.get(chr).get(i)[2]] = index;
 						}
 						else{
 							missSD++;
@@ -96,12 +101,21 @@ public class MosaicSDsBlockcompose {
 				mosaicSDs.add(tempSD);
 				String[] tempIndex={onepair[0], onepair[1], onepair[2]};
 				mosaicSDsIndex.add(tempIndex);
+				index++;
 			}
+			index=0;
+			for(int i=0;i<elements.size();i++){
+			    for(int j=0;j<elements.get(i).size();j++){
+				writer2.write(elements.get(i).get(j)[2]+"  "+chrs.get(i)+"  "+elements.get(i).get(j)[0]+"  "+elements.get(i).get(j)[1]+"  "+SDblock[elements.get(i).get(j)[2]]+"  "+Math.abs(SDblock[elements.get(i).get(j)[2]])+"  "+SDblockAssociatedMosaic[elements.get(i).get(j)[2]]+"\n");
+
+			    }
+			}
+			writer2.close();
 			
 			int missMosaicSD=0;
 			for(int i=0;i<mosaicSDs.size();i++){
 				if(mosaicSDs.get(i).size()>0){
-					writer.write(chrs.get(Integer.parseInt(mosaicSDsIndex.get(i)[0]))+"  "+mosaicSDsIndex.get(i)[1]+"  "+mosaicSDsIndex.get(i)[2]+" :  ");  
+					writer.write(i+"  "+chrs.get(Integer.parseInt(mosaicSDsIndex.get(i)[0]))+"  "+mosaicSDsIndex.get(i)[1]+"  "+mosaicSDsIndex.get(i)[2]+" :  ");  
 					for(int j=0;j<mosaicSDs.get(i).size();j++){
 						writer.write(mosaicSDs.get(i).get(j)+"  ");
 					}
