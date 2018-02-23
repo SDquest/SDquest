@@ -39,13 +39,13 @@ javac Recover.java
 java Recover SCN_LastzResult_500NonCRfiltered.txt SCN_LastzResult_500NonCR_FilterPair.txt 
 javac NewExtendPec50.java
 java NewExtendPec50 genome.masked_all.fasta genome.txt SCN_LastzResult_500NonCR_FilterPair.txt SCN_LastzResult_500NonCR_NewExtendPec50.txt SCN_LastzResult_500NonCR_BG.txt
-rm *.info
-rm SCN_LastzResult.txt
-rm SCN_LastzResult_500NonCR.txt
-rm SCN_LastzResult_500NonCR_sortPair.txt
-rm SCN_LastzResult_500NonCR_sortPair.sorted.txt
-rm SCN_LastzResult_500NonCRfiltered.txt
-rm SCN_LastzResult_500NonCR_FilterPair.txt
+#rm *.info
+#rm SCN_LastzResult.txt
+#rm SCN_LastzResult_500NonCR.txt
+#rm SCN_LastzResult_500NonCR_sortPair.txt
+#rm SCN_LastzResult_500NonCR_sortPair.sorted.txt
+#rm SCN_LastzResult_500NonCRfiltered.txt
+#rm SCN_LastzResult_500NonCR_FilterPair.txt
 javac changeFormatPairwise.java
 java changeFormatPairwise
 echo End pairwise SDs detection. Begin analyze mosaic SDs.
@@ -68,11 +68,11 @@ javac ElementSDsMulti.java
 java ElementSDsMulti
 javac MosaicSDsBlockcompose.java
 java MosaicSDsBlockcompose
-rm ElementSDs*.fasta
-rm length.fasta
-rm Clusters_100.fasta
-rm BadMosaicSD_100.fasta
-rm BG*.fasta
-rm AllSegsOfSCN*.fasta
+#rm ElementSDs*.fasta
+#rm length.fasta
+#rm Clusters_100.fasta
+#rm BadMosaicSD_100.fasta
+#rm BG*.fasta
+#rm AllSegsOfSCN*.fasta
 rm *.class
 echo end SDquest analysis
