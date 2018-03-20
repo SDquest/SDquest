@@ -30,9 +30,8 @@ There are two output files of SDquest “Pairwise_SDs.txt” and “MosaicSDs_SD
 
 This file contains all pairwise alignments identified by SDquest with similarities no less than 70%. Each line in the file represents a pairwise alignment. The format of each line is shown below.
 
-“index  cigar  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  Indel  identity”
+“index  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  Indel  identity”
 - index: the index of pairwise alignment
-- cigar: alignments between unique sequences (non-common repeat and non-tandem repeats) in this pairwise alignment
 - chrA: the chromosome index of the first segment
 - startA: the start position of the first segment
 - endA: the end position of the first segment
