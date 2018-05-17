@@ -12,7 +12,8 @@ public class MosaicSDsBlockcompose {
 	
 	public static void main(String args[]){
 		try{
-			Scanner in = new Scanner(new File("Genome_size_Indexes.txt")); int GenomeSize=0; String str; boolean isEnd=false;
+			Scanner in = new Scanner(new File(args[0]));  // Genome_size_Indexes.txt
+			int GenomeSize=0; String str; boolean isEnd=false;
 			ArrayList<String> chrs=new ArrayList<String>();
 			while(in.hasNextLine()&&!isEnd){
 				str=in.nextLine();
@@ -24,10 +25,10 @@ public class MosaicSDsBlockcompose {
 				}
 			}
 			
-			BufferedWriter writer=new BufferedWriter(new FileWriter(new File("MosaicSDs_SDblockIndexes.txt"))); 
+			BufferedWriter writer=new BufferedWriter(new FileWriter(new File(args[1])));
 			writer.write("chr   start   end   SDblocksIndexes"); writer.newLine(); 
 			
-			in = new Scanner(new File("ElementSDs_LengthAndMulti.fasta")); in.nextLine(); 
+			in = new Scanner(new File(args[2])); in.nextLine();
 			ArrayList<ArrayList<int[]>> elements=new ArrayList<ArrayList<int[]>>();
 			for(int i=0;i<GenomeSize;i++){
 				ArrayList<int[]> temp=new ArrayList<int[]>(); elements.add(temp);
@@ -46,7 +47,7 @@ public class MosaicSDsBlockcompose {
 			for(int i=0;i<SDblock.length;i++){
 				SDblock[i]=0; 
 			}
-			in = new Scanner(new File("blocks.fasta")); String temp; index=0; int length; int elementSD;
+			in = new Scanner(new File(args[3])); String temp; index=0; int length; int elementSD;
 			while(in.hasNextLine()){
 				temp=in.nextLine();
 				if(temp.length()>0){
@@ -76,7 +77,7 @@ public class MosaicSDsBlockcompose {
 			
 			ArrayList<ArrayList<Integer>> mosaicSDs=new ArrayList<ArrayList<Integer>>();
 			ArrayList<String[]> mosaicSDsIndex=new ArrayList<String[]>();
-			in=new Scanner(new File("BG_MosaicSDs.fasta")); in.nextLine();
+			in=new Scanner(new File(args[4])); in.nextLine();
 			index=0; int chr, start, end;  missSD=0;
 			while(in.hasNextLine()){
 				onepair=in.nextLine().trim().split("[\\p{Space}]+");

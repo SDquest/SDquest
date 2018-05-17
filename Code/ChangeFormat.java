@@ -11,9 +11,10 @@ public class ChangeFormat {
 	public static void main(String args[]){
 		try{
 //			long startTime=System.currentTimeMillis();
-			Scanner in = new Scanner(new File("genome.fa"));	//fa genome
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("genome.txt")));	
-			BufferedWriter writerGenome = new BufferedWriter(new FileWriter(new File("Genome_size_Indexes.txt")));	
+			Scanner in = new Scanner(new File(args[0]));	//fa genome
+			String outdir = args[2];
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outdir, "genome.txt")));
+			BufferedWriter writerGenome = new BufferedWriter(new FileWriter(new File(outdir, "Genome_size_Indexes.txt")));
 			double GenomeSize=0; String temp; int segNum=0;  int CRlength=0; int Nlength=0;
 			
 			temp=in.nextLine();
@@ -54,8 +55,8 @@ public class ChangeFormat {
 			writerGenome.close(); in.close();
 //			System.out.println("end fa Genome writing! ");
 			
-			in = new Scanner(new File("genome.masked.fa"));	
-			writer = new BufferedWriter(new FileWriter(new File("genome.masked.txt"))); segNum=0;
+			in = new Scanner(new File(args[1]));	// "genome.masked.fa"
+			writer = new BufferedWriter(new FileWriter(new File(outdir, "genome.masked.txt"))); segNum=0;
 			
 			temp=in.nextLine();
 			if(temp.charAt(0)!='>') {

@@ -29,8 +29,8 @@ public class changeFormatPairwise {
 	public static void main (String args[]){
 		try{
 //			Scanner inChrN=new Scanner(new File("genome.txt"));
-			Scanner inChr=new Scanner(new File("genome.masked_all.fasta"));
-			Scanner in=new Scanner(new File("Genome_size_Indexes.txt")); String str; 
+			Scanner inChr=new Scanner(new File(args[0]));  // genome.masked_all.fasta
+			Scanner in=new Scanner(new File(args[1])); String str;  // Genome_size_Indexes.txt
 			ArrayList<String> chrs=new ArrayList<String>();  boolean end=false;
 			ArrayList<String> segs=new ArrayList<String>();
 //			ArrayList<String> segsN=new ArrayList<String>();
@@ -48,9 +48,10 @@ public class changeFormatPairwise {
 			in.close(); inChr.close();
 //			System.out.println("end reading! "+chrs.size()+"  "+segs.size());
 			
-			in=new Scanner(new File("SCN_LastzResult_500NonCR_NewExtendPec50.txt"));
-			BufferedWriter writer=new BufferedWriter (new FileWriter(new File("Pairwise_SDs.txt")));
-			BufferedWriter writerBG=new BufferedWriter (new FileWriter(new File("BG_SDIndexes.fasta")));
+			in=new Scanner(new File(args[2])); // SCN_LastzResult_500NonCR_NewExtendPec50.txt
+			String outdir = args[3];
+			BufferedWriter writer=new BufferedWriter (new FileWriter(new File(outdir, "Pairwise_SDs.txt")));
+			BufferedWriter writerBG=new BufferedWriter (new FileWriter(new File(outdir, "BG_SDIndexes.fasta")));
 			in.nextLine(); String[] onepair; int indexW=0; int length1, length2; int start1,end1, start2,end2,chr, otherChr; int line=0, tempN1, tempN2;
 			writer.write("index  chrA  startA  endA  strandA  chrB  startB  endB  strandB  Match  Mismath  Indel  identity"); writer.newLine();
 			while(in.hasNextLine()){

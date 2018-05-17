@@ -412,7 +412,7 @@ public class NewExtendPec50 {
 		}
 		return false;
 	}
-	
+
 	public static void main (String args[]){
 		try{
 			long startTime=System.currentTimeMillis(); int maxN=1000000;
@@ -423,11 +423,10 @@ public class NewExtendPec50 {
 			}
 //			System.out.println("end reading 1 "+p);
 			inSeg.close(); p=0;
-			
+
 			inSeg = new Scanner (new File(args[1])); //CR TR not masked  "Hg38Genome.txt"
 			while(inSeg.hasNextLine()) {
 				inSeg.nextLine(); segsCR.add(inSeg.nextLine()); p++;
-				
 			}
 			inSeg.close();
 //			System.out.println("end reading 2 "+p+"  "+segsCR.get(0).length());
@@ -435,6 +434,7 @@ public class NewExtendPec50 {
 			Scanner in = new Scanner (new File(args[2]));  String temp=in.nextLine(); String[] onepair;  //"SCN_LastzResult_500NonCR_FilterPair.txt"
 			String otherChr="", chr="", otherChrCR="", chrCR=""; int curChr, curOtherChr;
 			int start1,end1,start2,end2,s1,e1,s2,e2; int extendS1, extendE1, extendS2, extendE2; String[] cigarS=new String[5]; String[] cigarE=new String[5]; int CR1, CR2;
+			String strand1, strand2;
 			double identity1,identity2; int indexE=0, indexT=0, indexTE=0, index=0; int time1=0, time2=0, time3=0; int line=0;
 			
 			String seg1,seg2, segCR1, segCR2; boolean start,end, change; String[] align=new String[4]; int[] newIndex=new int[4]; int extendLength=50; int[][][] sAndP=new int[51][51][2];
@@ -454,10 +454,12 @@ public class NewExtendPec50 {
 				if(Integer.parseInt(onepair[4])!=Integer.parseInt(onepair[7])||(Integer.parseInt(onepair[5])>Integer.parseInt(onepair[9]))||(Integer.parseInt(onepair[8])>Integer.parseInt(onepair[6]))){
 					curChr=Integer.parseInt(onepair[4]); curOtherChr=Integer.parseInt(onepair[7]);
 //					System.out.println(curChr+"   "+curOtherChr);
-					
+
 					chr=segs.get(curChr); chrCR=segsCR.get(curChr); length=chr.length();
 					start1=Integer.parseInt(onepair[5]); end1=Integer.parseInt(onepair[6]);
-					if(onepair[14].equalsIgnoreCase("+")){
+					start2=Integer.parseInt(onepair[8]); end2=Integer.parseInt(onepair[9]);
+					strand1=onepair[14]; strand2=onepair[15];
+					if(strand1.equalsIgnoreCase("+")){
 						seg1=chr.substring(start1, end1);  segCR1=chrCR.substring(start1, end1).toUpperCase();
 					}
 					else{
@@ -466,9 +468,7 @@ public class NewExtendPec50 {
 //					System.out.println("end seg1  "+length);
 					
 					otherChr=segs.get(curOtherChr); otherChrCR=segsCR.get(curOtherChr); otherLength=otherChr.length();
-					start2=Integer.parseInt(onepair[8]); end2=Integer.parseInt(onepair[9]);
-					
-					if(onepair[15].equalsIgnoreCase("+")){
+					if(strand2.equalsIgnoreCase("+")){
 						seg2=otherChr.substring(start2, end2); 	segCR2=otherChrCR.substring(start2, end2).toUpperCase();				
 					}
 					else{
@@ -485,7 +485,7 @@ public class NewExtendPec50 {
 					start=true; change=true; time1=0; //extend1=false;
 					while(start){
 						start=false; str1=""; str2=""; 
-						if(onepair[14].equalsIgnoreCase("+")){//get str1
+						if(strand1.equalsIgnoreCase("+")){//get str1
 							if((start1-extendLength)>=0){
 								str1=chrCR.substring(start1-extendLength, start1).toUpperCase(); //strCR1=chrCR.substring(start1-extendLength, start1);
 								if(existGapN(str1)){
@@ -509,7 +509,7 @@ public class NewExtendPec50 {
 						}
 						
 						if(change){
-							if(onepair[15].equalsIgnoreCase("+")){
+							if(strand2.equalsIgnoreCase("+")){
 								if((start2-extendLength)>=0){
 									str2=otherChrCR.substring(start2-extendLength, start2).toUpperCase(); // strCR2=otherChrCR.substring(start2-extendLength, start2);
 									if(existGapN(str2)){
@@ -537,13 +537,13 @@ public class NewExtendPec50 {
 							align=globalAlignment(str1,str2,sAndP);
 							if(Double.parseDouble(align[3])/align[0].length()>0.5){
 								start=true; //extend1=true;
-								if(onepair[14].equalsIgnoreCase("+")){
+								if(strand1.equalsIgnoreCase("+")){
 									start1=start1-extendLength;
 								}
 								else{
 									end1=end1+extendLength;
 								}
-								if(onepair[15].equalsIgnoreCase("+")){
+								if(strand2.equalsIgnoreCase("+")){
 									start2=start2-extendLength;
 								}
 								else{
@@ -586,27 +586,27 @@ public class NewExtendPec50 {
 								if(Double.parseDouble(align[3])/align[0].length()<0.7){// if the similarity is low, thus need to cut the start
 									if(CR1<extendLength&&CR2<extendLength){
 										if(CR1<CR2){
-											newIndex=cutCigarStart(1,CR2,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);										
+											newIndex=cutCigarStart(1,CR2,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);										
 										}
 										else{
-											newIndex=cutCigarStart(0,CR1,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);
+											newIndex=cutCigarStart(0,CR1,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);
 										}
 									}
 									else if(CR1<extendLength){
-										newIndex=cutCigarStart(0,CR1,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);
+										newIndex=cutCigarStart(0,CR1,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);
 									}
 									else{
-										newIndex=cutCigarStart(1,CR2,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);		
+										newIndex=cutCigarStart(1,CR2,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);		
 									}
 									
 									start1=newIndex[0]; end1=newIndex[1]; start2=newIndex[2]; end2=newIndex[3];
-									if(onepair[14].equalsIgnoreCase("+")){
+									if(strand1.equalsIgnoreCase("+")){
 										seg1=chr.substring(start1, end1);  segCR1=chrCR.substring(start1, end1).toUpperCase();
 									}
 									else{
 										seg1=reverse(chr.substring(start1, end1));  segCR1=reverse(chrCR.substring(start1, end1).toUpperCase());
 									}
-									if(onepair[15].equalsIgnoreCase("+")){
+									if(strand2.equalsIgnoreCase("+")){
 										seg2=otherChr.substring(start2, end2); 	segCR2=otherChrCR.substring(start2, end2).toUpperCase();				
 									}
 									else{
@@ -630,7 +630,7 @@ public class NewExtendPec50 {
 							start=true; change=true; time3=0;
 							while(start){
 								start=false; str1=""; str2=""; 
-								if(onepair[14].equalsIgnoreCase("+")){//get str1
+								if(strand1.equalsIgnoreCase("+")){//get str1
 									if((start1-extendLength)>=0){
 										str1=chrCR.substring(start1-extendLength, start1).toUpperCase(); //strCR1=chrCR.substring(start1-extendLength, start1);
 										if(existGapN(str1)){
@@ -653,7 +653,7 @@ public class NewExtendPec50 {
 									}
 								}
 								
-								if(onepair[15].equalsIgnoreCase("+")){
+								if(strand2.equalsIgnoreCase("+")){
 									if((start2-extendLength)>=0){
 										str2=otherChrCR.substring(start2-extendLength, start2).toUpperCase(); // strCR2=otherChrCR.substring(start2-extendLength, start2);
 										if(existGapN(str2)){
@@ -680,13 +680,13 @@ public class NewExtendPec50 {
 									align=globalAlignment(str1,str2,sAndP);
 									if(Double.parseDouble(align[3])/align[0].length()>0.5){
 										start=true; //extend1=true;
-										if(onepair[14].equalsIgnoreCase("+")){
+										if(strand1.equalsIgnoreCase("+")){
 											start1=start1-extendLength;
 										}
 										else{
 											end1=end1+extendLength;
 										}
-										if(onepair[15].equalsIgnoreCase("+")){
+										if(strand2.equalsIgnoreCase("+")){
 											start2=start2-extendLength;
 										}
 										else{
@@ -723,13 +723,13 @@ public class NewExtendPec50 {
 								while(align1.size()>time3){
 									align1.remove(align1.size()-1); align2.remove(align2.size()-1); 
 								}
-								if(onepair[14].equalsIgnoreCase("+")){
+								if(strand1.equalsIgnoreCase("+")){
 									extendS1=s1-extendLength*time3;
 								}
 								else{
 									extendE1=e1+extendLength*time3;
 								}
-								if(onepair[15].equalsIgnoreCase("+")){
+								if(strand2.equalsIgnoreCase("+")){
 									extendS2=s2-extendLength*time3;
 								}
 								else{
@@ -744,13 +744,13 @@ public class NewExtendPec50 {
 						while(align1.size()>time1){
 							align1.remove(align1.size()-1); align2.remove(align2.size()-1); 
 						}
-						if(onepair[14].equalsIgnoreCase("+")){
+						if(strand1.equalsIgnoreCase("+")){
 							extendS1=s1-extendLength*time1;
 						}
 						else{
 							extendE1=e1+extendLength*time1;
 						}
-						if(onepair[15].equalsIgnoreCase("+")){
+						if(strand2.equalsIgnoreCase("+")){
 							extendS2=s2-extendLength*time1;
 						}
 						else{
@@ -779,7 +779,7 @@ public class NewExtendPec50 {
 					
 					while(end){
 						end=false; str1=""; str2="";  
-						if(onepair[14].equalsIgnoreCase("+")){//get str1
+						if(strand1.equalsIgnoreCase("+")){//get str1
 							if((end1+extendLength)<=length){
 								str1=chrCR.substring(end1, end1+extendLength).toUpperCase(); // strCR1=chrCR.substring(end1, end1+extendLength);
 								if(existGapN(str1)){
@@ -802,7 +802,7 @@ public class NewExtendPec50 {
 							}
 						}
 						
-						if(onepair[15].equalsIgnoreCase("+")){
+						if(strand2.equalsIgnoreCase("+")){
 							if((end2+extendLength)<otherLength){
 								str2=otherChrCR.substring(end2, end2+extendLength).toUpperCase(); // strCR2=otherChrCR.substring(end2, end2+extendLength);
 								if(existGapN(str2)){
@@ -829,13 +829,13 @@ public class NewExtendPec50 {
 							align=globalAlignment(str1,str2,sAndP);
 							if(Double.parseDouble(align[3])/align[0].length()>0.5){
 								end=true;  //extend2=true;
-								if(onepair[14].equalsIgnoreCase("+")){
+								if(strand1.equalsIgnoreCase("+")){
 									end1=end1+extendLength;
 								}
 								else{
 									start1=start1-extendLength;
 								}
-								if(onepair[15].equalsIgnoreCase("+")){
+								if(strand2.equalsIgnoreCase("+")){
 									end2=end2+extendLength;
 								}
 								else{
@@ -878,27 +878,27 @@ public class NewExtendPec50 {
 								if(Double.parseDouble(align[3])/align[0].length()<0.7){//if the end similarity is low, thus need to be cutted
 									if(CR1<extendLength&&CR2<extendLength){
 										if(CR1<CR2){
-											newIndex=cutCigarEnd(1,CR2,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);
+											newIndex=cutCigarEnd(1,CR2,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);
 										}
 										else{
-											newIndex=cutCigarEnd(0,CR1,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);
+											newIndex=cutCigarEnd(0,CR1,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);
 										}
 									}
 									else if(CR1<extendLength){
-										newIndex=cutCigarEnd(0,CR1,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);
+										newIndex=cutCigarEnd(0,CR1,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);
 									}
 									else{
-										newIndex=cutCigarEnd(1,CR2,alignment,seg1,onepair[14],start1,end1,seg2,onepair[15],start2,end2);
+										newIndex=cutCigarEnd(1,CR2,alignment,seg1,strand1,start1,end1,seg2,strand2,start2,end2);
 									}
 									
 									start1=newIndex[0]; end1=newIndex[1]; start2=newIndex[2]; end2=newIndex[3];
-									if(onepair[14].equalsIgnoreCase("+")){
+									if(strand1.equalsIgnoreCase("+")){
 										seg1=chr.substring(start1, end1);  segCR1=chrCR.substring(start1, end1).toUpperCase();
 									}
 									else{
 										seg1=reverse(chr.substring(start1, end1));  segCR1=reverse(chrCR.substring(start1, end1).toUpperCase());
 									}
-									if(onepair[15].equalsIgnoreCase("+")){
+									if(strand2.equalsIgnoreCase("+")){
 										seg2=otherChr.substring(start2, end2); 	segCR2=otherChrCR.substring(start2, end2).toUpperCase();				
 									}
 									else{
@@ -934,7 +934,7 @@ public class NewExtendPec50 {
 							
 							while(end){
 								end=false; str1=""; str2="";  
-								if(onepair[14].equalsIgnoreCase("+")){//get str1
+								if(strand1.equalsIgnoreCase("+")){//get str1
 									if((end1+extendLength)<=length){
 										str1=chrCR.substring(end1, end1+extendLength).toUpperCase(); // strCR1=chrCR.substring(end1, end1+extendLength);
 										if(existGapN(str1)){
@@ -957,7 +957,7 @@ public class NewExtendPec50 {
 									}
 								}
 								
-								if(onepair[15].equalsIgnoreCase("+")){
+								if(strand2.equalsIgnoreCase("+")){
 									if((end2+extendLength)<otherLength){
 										str2=otherChrCR.substring(end2, end2+extendLength).toUpperCase(); // strCR2=otherChrCR.substring(end2, end2+extendLength);
 										if(existGapN(str2)){
@@ -984,13 +984,13 @@ public class NewExtendPec50 {
 									align=globalAlignment(str1,str2,sAndP);
 									if(Double.parseDouble(align[3])/align[0].length()>0.5){
 										end=true;  //extend2=true;
-										if(onepair[14].equalsIgnoreCase("+")){
+										if(strand1.equalsIgnoreCase("+")){
 											end1=end1+extendLength;
 										}
 										else{
 											start1=start1-extendLength;
 										}
-										if(onepair[15].equalsIgnoreCase("+")){
+										if(strand2.equalsIgnoreCase("+")){
 											end2=end2+extendLength;
 										}
 										else{
@@ -1027,13 +1027,13 @@ public class NewExtendPec50 {
 								while(align1.size()>time3){
 									align1.remove(align1.size()-1); align2.remove(align2.size()-1); 
 								}
-								if(onepair[14].equalsIgnoreCase("+")){
+								if(strand1.equalsIgnoreCase("+")){
 									extendE1=e1+extendLength*time3;
 								}
 								else{
 									extendS1=s1-extendLength*time3;
 								}
-								if(onepair[15].equalsIgnoreCase("+")){
+								if(strand2.equalsIgnoreCase("+")){
 									extendE2=e2+extendLength*time3;
 								}
 								else{
@@ -1047,13 +1047,13 @@ public class NewExtendPec50 {
 						while(align1.size()>time2){
 							align1.remove(align1.size()-1); align2.remove(align2.size()-1); 
 						}
-						if(onepair[14].equalsIgnoreCase("+")){
+						if(strand1.equalsIgnoreCase("+")){
 							extendE1=e1+extendLength*time2;
 						}
 						else{
 							extendS1=s1-extendLength*time2;
 						}
-						if(onepair[15].equalsIgnoreCase("+")){
+						if(strand2.equalsIgnoreCase("+")){
 							extendE2=e2+extendLength*time2;
 						}
 						else{
@@ -1130,7 +1130,7 @@ public class NewExtendPec50 {
             e.printStackTrace();
         }
 		catch(Exception e){
-			
+			e.printStackTrace();
 		}
 	}
 	

@@ -23,8 +23,8 @@ public class ElementSDs {
 			long startTime=System.currentTimeMillis();
 			ArrayList<String> CRs=new ArrayList<String>(); ArrayList<String> ends=new ArrayList<String>(); 
 			ArrayList<boolean[]> lines=new ArrayList<boolean[]>();
-			Scanner inChr = new Scanner(new File("genome.masked_all.fasta")); String tempChr;
-			Scanner inEnds = new Scanner(new File("EndpointsLine.txt"));
+			Scanner inChr = new Scanner(new File(args[0])); String tempChr;  // genome.masked_all.fasta
+			Scanner inEnds = new Scanner(new File(args[1]));  // EndpointsLine.txt
 			while(inChr.hasNextLine()){
 				inChr.nextLine(); tempChr=inChr.nextLine();
 				CRs.add(tempChr); 
@@ -40,10 +40,11 @@ public class ElementSDs {
 //			System.out.println("end reading chrs and endlines!  "+ends.size());
 			
 			int clusterLength=100; int badNum=0; int badInterval=0;
-			Scanner in = new Scanner(new File("BG_MosaicSDs.fasta"));	in.nextLine();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("ElementSDs_100.fasta")));	
-			BufferedWriter writerC = new BufferedWriter(new FileWriter(new File("Clusters_100.fasta")));
-			BufferedWriter writerB = new BufferedWriter(new FileWriter(new File("BadMosaicSD_100.fasta")));
+			Scanner in = new Scanner(new File(args[2]));	in.nextLine();  // BG_MosaicSDs.fasta
+			String outdir = args[3];
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_100.fasta")));
+			BufferedWriter writerC = new BufferedWriter(new FileWriter(new File(outdir, "Clusters_100.fasta")));
+			BufferedWriter writerB = new BufferedWriter(new FileWriter(new File(outdir, "BadMosaicSD_100.fasta")));
 			writerB.write("chr  start  end  points  cluster  length  compactL"); writerB.newLine();
 			writer.write("index  chr  midStart  midEnd  midLength  startC  endC  lengthC"); writer.newLine();
 			writerC.write("index   chr   start   end   size   length  compactLength"); writerC.newLine();
@@ -103,7 +104,7 @@ public class ElementSDs {
 			}
 			writer.close(); writerC.close(); writerB.close(); in.close();
 			
-			writer = new BufferedWriter(new FileWriter(new File("ClustersLine.txt")));	
+			writer = new BufferedWriter(new FileWriter(new File(outdir, "ClustersLine.txt")));
 			for(int n=0;n<lines.size();n++){
 				writer.write(">"+n); writer.newLine();
 				for(int i=0;i<lines.get(n).length;i++){

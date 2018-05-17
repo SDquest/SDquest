@@ -1,11 +1,15 @@
 # SDquest usage:
 
-Download the "Code" folder. The excutable script "SDquest.sh" is under the "Code" folder.
+Download the "Code" folder. The executable script "SDquest.sh" is under the "Code" folder.
 
- ./SDquest.sh CPU_NUMBER
-- CPU_NUMBER: an integer, indicating the number of CPUs used by SDquest
+ ./SDquest.sh <output_dir> <genome.fa> <genome.masked.fa> <cpu_number>
+- output_dir: a directory to store all result files (SDquest creates the folder if it does not exist)
+- genome.fa: a path to the genome
+- genome.masked.fa: a path to the masked genome
+- cpu_number: an integer, indicating the number of CPUs used by SDquest
 
-For example, “./SDquest.sh 20” means running SDquest with 20 CPUs.
+For example, “./SDquest.sh human/ human.fa human.masked.fa 20” means running SDquest with 20 CPUs using human.fa and human.masked.fa files,
+all output files will be saved to the "human" folder.
 
 
 # Download genome datasets as input:
@@ -17,14 +21,18 @@ Currently, SDquest has detected and analyzed segmental duplications on the follo
 - Mouse genome (NCBI36/mm8): http://hgdownload.soe.ucsc.edu/goldenPath/mm8/bigZips/
 - Mouse genome (GRCm38/mm10): http://hgdownload.soe.ucsc.edu/goldenPath/mm10/bigZips/
 
-To run SDquest on the 5 genomes shown above, please download both of the file “chromFa.tar.gz” and “chromFaMasked.tar.gz” in one of the above links. Unzip these two files, you will find chromosome files in "chromFa" folder and the corresponding chromosome files with common repeats be masked by 'N' in the "chromFaMasked" folder. Copy chromosome files you would like to run in the "chromFa" folder into the folder "Genome" under the main "Code" directory, and copy the corresponding masked chromosome files in the "chromFaMasked" folder into the folder "maskedGenome" under the main "Code" directory. Note that, currently, there already exists a small test genome file in the "Genome" and "maskedGenome" folders for users to do test. To run SDquest on your own data, you should first delete the test genome files from the "Genome" and "maskedGenome" folders. 
+To run SDquest on the 5 genomes shown above, please download both of the file “chromFa.tar.gz” and “chromFaMasked.tar.gz”
+in one of the above links. Unzip these two files, you will find chromosome files in the "chromFa" folder and the corresponding chromosome
+files with common repeats be masked by 'N' in the "chromFaMasked" folder. Concatenate all files from the "chromFa" folder to one FASTA file and
+all files from the "chromFaMasked" folder to another FASTA file.
 
-Besides, files in "Genome" folder should be named by "\*.fa" and the files in "maskedGenome" folder should be named by "\*.fa.masked". For human and mouse genomes, the pairwise SDs and mosaic SDs provided in this website are obtained by running SDquest on 22/19 autosomal chromosomals, X chromosomal and Y chromosomal. The current version SDquest only allows you to handle one genome (in the “Genome” and “maskedGenome” folder) at a time.
+For human and mouse genomes, the pairwise SDs and mosaic SDs provided in this website are obtained by running SDquest on 22/19 autosomal chromosomals,
+X chromosomal and Y chromosomal. The current version SDquest only allows you to handle one genome at a time.
 
 Technically, SDquest can detect segmental duplications on any genome as long as the input genome sequence and the genome sequence with common repeats are masked by 'N' are given. 
 
 # Output from SDquest:
-There are two output files of SDquest “Pairwise_SDs.txt” and “MosaicSDs_SDblockIndexes.txt”. They can be found under the “Code” folder. 
+There are two output files of SDquest “Pairwise_SDs.txt” and “MosaicSDs_SDblockIndexes.txt”. They can be found under the output folder.
 
 (1) Pairwise_SDs.txt
 
@@ -56,6 +64,6 @@ This file contains positions of all mosaic SDs in the genome. Each line represen
 - B1 B2 ...: the ordered list of SDblocks in this mosaic SD
 
 # Test Case
-A test case with 1 Mb simulated genome is attached inside the "Genome" and "maskedGenome" folder under the "Code" directory. If no additional genome data be added into the "Genome" and "maskedGenome" folder under the "Code" directory, SDquest default to run SDquest on this 1 Mb simulated genome. 
+A test case with 1 Mb simulated genome is attached inside the "Genome" and "maskedGenome" folder under the "Code" directory.
 
 In this 1 Mb simulated genome, there exist 4 mosaic SDs \[A, B] (start at position 100,000), \[A] (start at position 300,000),  \[-B,-A] (start at position 600,000) and  \[-B] (start at position 850,000). A and B represent two SD-blocks with length 2000 bp and 3000 bp respectively. To see output of SDquest on this simulated genome, users can run command "./SDquest.sh 1".

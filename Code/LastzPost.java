@@ -88,17 +88,17 @@ public class LastzPost {
                         if(seg1!=seg2||Integer.parseInt(onepair[10])>Integer.parseInt(onepair[6])||Integer.parseInt(onepair[5])>Integer.parseInt(onepair[11])){
 							writer.write(index+"  "+onepair[0]+"  "+seg1+"  "+seg2+"  ");
 							if(onepair[3].equalsIgnoreCase("+")){
-								writer.write(SegsIndex.get(seg1)[0]+"  "+(SegsIndex.get(seg1)[1]+recover(Segs.get(seg1),Integer.parseInt(onepair[5])))+"  "+(SegsIndex.get(seg1)[1]+recover(Segs.get(seg1),(Integer.parseInt(onepair[6])-1))+1)+"  ");									
+								writer.write(SegsIndex.get(seg1)[0]+"  "+(SegsIndex.get(seg1)[1]+recover(Segs.get(seg1),Integer.parseInt(onepair[5])))+"  "+(SegsIndex.get(seg1)[1]+recover(Segs.get(seg1),(Integer.parseInt(onepair[6])-1))+1)+"  ");
 							}
 							else{
-								writer.write(SegsIndex.get(seg1)[0]+"  "+(SegsIndex.get(seg1)[1]+reverseRecover(Segs.get(seg1),(Integer.parseInt(onepair[6])-1)))+"  "+(SegsIndex.get(seg1)[1]+reverseRecover(Segs.get(seg1),Integer.parseInt(onepair[5]))+1)+"  ");		
+								writer.write(SegsIndex.get(seg1)[0]+"  "+(SegsIndex.get(seg1)[1]+reverseRecover(Segs.get(seg1),(Integer.parseInt(onepair[6])-1)))+"  "+(SegsIndex.get(seg1)[1]+reverseRecover(Segs.get(seg1),Integer.parseInt(onepair[5]))+1)+"  ");
 							}
 							
 							if(onepair[8].equalsIgnoreCase("+")){
-								writer.write(SegsIndex.get(seg2)[0]+"  "+(SegsIndex.get(seg2)[1]+recover(Segs.get(seg2),Integer.parseInt(onepair[10])))+"  "+(SegsIndex.get(seg2)[1]+recover(Segs.get(seg2),(Integer.parseInt(onepair[11])-1))+1)+"  ");									
+								writer.write(SegsIndex.get(seg2)[0]+"  "+(SegsIndex.get(seg2)[1]+recover(Segs.get(seg2),Integer.parseInt(onepair[10])))+"  "+(SegsIndex.get(seg2)[1]+recover(Segs.get(seg2),(Integer.parseInt(onepair[11])-1))+1)+"  ");
 							}
 							else{
-								writer.write(SegsIndex.get(seg2)[0]+"  "+(SegsIndex.get(seg2)[1]+reverseRecover(Segs.get(seg2),(Integer.parseInt(onepair[11])-1)))+"  "+(SegsIndex.get(seg2)[1]+reverseRecover(Segs.get(seg2),Integer.parseInt(onepair[10]))+1)+"  ");									
+								writer.write(SegsIndex.get(seg2)[0]+"  "+(SegsIndex.get(seg2)[1]+reverseRecover(Segs.get(seg2),(Integer.parseInt(onepair[11])-1)))+"  "+(SegsIndex.get(seg2)[1]+reverseRecover(Segs.get(seg2),Integer.parseInt(onepair[10]))+1)+"  ");
 							}
 							writer.write(onepair[16]+"  "+onepair[17]+"  "+onepair[18]+"  "+gapLength(onepair[0])+"  "+onepair[3]+"  "+onepair[8]);								
 							writer.newLine();  index++;

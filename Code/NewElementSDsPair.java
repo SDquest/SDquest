@@ -258,9 +258,9 @@ public class NewElementSDsPair {
 			long startTime=System.currentTimeMillis();
 			ArrayList<String> chroms=new ArrayList<String>(); ArrayList<String> clusters=new ArrayList<String>();
 			ArrayList<String> chromsN=new ArrayList<String>();
-			Scanner inChr = new Scanner(new File("genome.masked_all.fasta"));
-			Scanner inChrN = new Scanner(new File("genome.txt"));
-			Scanner inCluster = new Scanner(new File("ClustersLine.txt"));
+			Scanner inChr = new Scanner(new File(args[0]));
+			Scanner inChrN = new Scanner(new File(args[1]));
+			Scanner inCluster = new Scanner(new File(args[2]));
 			
 			while(inChr.hasNextLine()){
 				inChr.nextLine(); chroms.add(inChr.nextLine()); 
@@ -275,7 +275,7 @@ public class NewElementSDsPair {
 			for(int i=0;i<chroms.size();i++){
 				ArrayList<int[]> temp=new ArrayList<int[]>(); pairs.add(temp);
 			}
-			Scanner in = new Scanner(new File("ElementSDs_100.fasta")); in.nextLine();
+			Scanner in = new Scanner(new File(args[3])); in.nextLine();
 			String[] onepair; int index=1;
 			while(in.hasNextLine()){
 				onepair=in.nextLine().trim().split("[\\p{Space}]+");
@@ -286,14 +286,15 @@ public class NewElementSDsPair {
 //			System.out.println(index);
 	
 			Scanner inL = new Scanner(new File("length.fasta"));
-			in=new Scanner(new File("SCN_LastzResult_500NonCR_NewExtendPec50.txt")); in.nextLine();
-			BufferedWriter writerE = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseEqual.fasta")));	
-			BufferedWriter writerU = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseUnequal.fasta")));	
-			BufferedWriter writerLE = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseLengthEqual.fasta")));
-			BufferedWriter writerLU = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseLengthUequal.fasta")));
-			BufferedWriter writerDistri = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseDistri.fasta")));	
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseSpecial_9.fasta")));	
-			BufferedWriter writerDif = new BufferedWriter(new FileWriter(new File("ElementSDs_pairwiseDifference.fasta")));	
+			in=new Scanner(new File(args[4])); in.nextLine();  // SCN_LastzResult_500NonCR_NewExtendPec50.txt
+			String outdir = args[5];
+			BufferedWriter writerE = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseEqual.fasta")));
+			BufferedWriter writerU = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseUnequal.fasta")));
+			BufferedWriter writerLE = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseLengthEqual.fasta")));
+			BufferedWriter writerLU = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseLengthUequal.fasta")));
+			BufferedWriter writerDistri = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseDistri.fasta")));
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseSpecial_9.fasta")));
+			BufferedWriter writerDif = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseDifference.fasta")));
 			
 			int[][] distri=new int[12][12];
 			for(int i=0;i<12;i++){

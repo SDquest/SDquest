@@ -12,7 +12,8 @@ public class ElementSDsMulti {
 	public static void main(String args[]){
 		try{
 			long startTime=System.currentTimeMillis();
-			Scanner in = new Scanner(new File("Genome_size_Indexes.txt")); int GenomeSize=0; String str; boolean isEnd=false;
+			Scanner in = new Scanner(new File(args[0]));  // Genome_size_Indexes.txt
+			int GenomeSize=0; String str; boolean isEnd=false;
 			while(in.hasNextLine()&&!isEnd){
 				str=in.nextLine();
 				if(str.charAt(0)=='>'){
@@ -27,7 +28,7 @@ public class ElementSDsMulti {
 			for(int i=0;i<GenomeSize;i++){
 				ArrayList<int[]> temp=new ArrayList<int[]>(); pairs.add(temp);
 			}
-			in = new Scanner(new File("ElementSDs_100.fasta")); in.nextLine();
+			in = new Scanner(new File(args[1])); in.nextLine();  // ElementSDs_100.fasta
 			String[] onepair; int index=0;
 			while(in.hasNextLine()){
 				onepair=in.nextLine().trim().split("[\\p{Space}]+");
@@ -38,8 +39,8 @@ public class ElementSDsMulti {
 			in.close();
 //			System.out.println(index);
 	
-			in=new Scanner(new File("SCN_LastzResult_500NonCR_NewExtendPec50.txt")); in.nextLine();
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("ElementSDs_LengthAndMulti.fasta")));
+			in=new Scanner(new File(args[2])); in.nextLine();  // SCN_LastzResult_500NonCR_NewExtendPec50.txt
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(args[3])));  // ElementSDs_LengthAndMulti.fasta
 			writer.write("index   chr   start   end   midLength   multi"); writer.newLine();
 			int chr, start, end; 
 			while(in.hasNextLine()){

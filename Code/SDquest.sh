@@ -1,85 +1,85 @@
 #! /bin/csh
-cd Genome
-cat *.fa > genome.fa
-mv genome.fa ../
-cd ../maskedGenome
-cat *.masked > genome.masked.fa
-mv genome.masked.fa ../
-cd ..
+set outdir = $argv[1]
+set genome = $argv[2]
+set maskedgenome = $argv[3]
+set threads = $argv[4]
+echo Creating $outdir
+mkdir $outdir
+cp $genome $outdir/genome.fa
+cp $maskedgenome $outdir/genome.masked.fa
+echo Processing genome files
 javac ChangeFormat.java
-java ChangeFormat
-./TRFinder/trf409.linux64 genome.masked.txt 2 7 7 80 10 50 500 -f -d -h -ngs > genome.masked.info
+java ChangeFormat $outdir/genome.fa $outdir/genome.masked.fa $outdir
+echo Running TRFinder
+chmod +x TRFinder/trf409.linux64
+./TRFinder/trf409.linux64 $outdir/genome.masked.txt 2 7 7 80 10 50 500 -f -d -h -ngs > $outdir/genome.masked.info
 javac masktandemRepeats.java
-java masktandemRepeats genome.masked.txt genome.masked.info genome.masked_all.fasta 
-./dsk/dsk -verbose 0 -file genome.masked_all.fasta -kmer-size 25 -abundance-min 2 -out genome_Kmer_2.h5
-./dsk/dsk2ascii -verbose 0 -file genome_Kmer_2.h5 -out genome_Kmer_2.txt
-sort -k 1 genome_Kmer_2.txt > genome_Kmer_2.sorted.txt
+java masktandemRepeats $outdir/genome.masked.txt $outdir/genome.masked.info $outdir/genome.masked_all.fasta
+echo Running k-mer counting
+chmod +x dsk/dsk
+chmod +x dsk/dsk2ascii
+./dsk/dsk -verbose 0 -file $outdir/genome.masked_all.fasta -kmer-size 25 -abundance-min 2 -out $outdir/genome_Kmer_2.h5
+./dsk/dsk2ascii -verbose 0 -file $outdir/genome_Kmer_2.h5 -out $outdir/genome_Kmer_2.txt
+sort -k 1 $outdir/genome_Kmer_2.txt > $outdir/genome_Kmer_2.sorted.txt
 javac FrequencyLine.java
-java FrequencyLine genome_Kmer_2.sorted.txt genome.masked_all.fasta FrequencyLine.txt 25
+java FrequencyLine $outdir/genome_Kmer_2.sorted.txt $outdir/genome.masked_all.fasta $outdir/FrequencyLine.txt 25
 javac CombineLine.java
-java CombineLine FrequencyLine.txt genome.txt CombineLine.txt
+java CombineLine $outdir/FrequencyLine.txt $outdir/genome.txt $outdir/CombineLine.txt
 javac GetAllSCSegs.java
-java GetAllSCSegs genome.masked_all.fasta CombineLine.txt genome.txt AllSegsOfSCN_CRMasked.fasta AllSegsOfSCN_CRRemoved.fasta 25
-javac PutativeSDsSeperated.java
-java PutativeSDsSeperated $argv[1]
-chmod 744 Lastz.sh
-./Lastz.sh $argv[1]
+java GetAllSCSegs $outdir/genome.masked_all.fasta $outdir/CombineLine.txt $outdir/genome.txt $outdir/AllSegsOfSCN_CRMasked.fasta $outdir/AllSegsOfSCN_CRRemoved.fasta 25
+javac PutativeSDsSeparated.java
+java PutativeSDsSeparated $threads $outdir/AllSegsOfSCN_CRRemoved.fasta $outdir/AllSegsOfSCN_CRMasked.fasta $outdir
+chmod +x Lastz.sh
+./Lastz.sh $threads
 wait
-cat AllSegsOfSCN_CRRemoved*.info > AllSegsOfSCN.info
-javac LastzPost.java
-java LastzPost AllSegsOfSCN_CRMasked.fasta AllSegsOfSCN.info SCN_LastzResult.txt 
+cat $outdir/AllSegsOfSCN_CRRemoved*.info > $outdir/AllSegsOfSCN.info
+javac MinimapPost.java
+java MinimapPost $outdir/AllSegsOfSCN_CRMasked.fasta $outdir/AllSegsOfSCN.info $outdir/SCN_MinimapResult.txt
 javac FilterAlignmentsWith500NonCR.java
-java FilterAlignmentsWith500NonCR SCN_LastzResult.txt SCN_LastzResult_500NonCR.txt 
+java FilterAlignmentsWith500NonCR $outdir/SCN_MinimapResult.txt $outdir/SCN_MinimapResult_500NonCR.txt 
 javac SortPairs.java
-java SortPairs SCN_LastzResult_500NonCR.txt SCN_LastzResult_500NonCR_sortPair.txt 
-sort -n -k 5 -k 6 -k 7 -k 8 -k 9 -k 10 -k 11 -k 12 -k 14 SCN_LastzResult_500NonCR_sortPair.txt > SCN_LastzResult_500NonCR_sortPair.sorted.txt
+java SortPairs $outdir/SCN_MinimapResult_500NonCR.txt $outdir/SCN_MinimapResult_500NonCR_sortPair.txt 
+sort -n -k 5 -k 6 -k 7 -k 8 -k 9 -k 10 -k 11 -k 12 -k 14 $outdir/SCN_MinimapResult_500NonCR_sortPair.txt > $outdir/SCN_MinimapResult_500NonCR_sortPair.sorted.txt
 javac FilterRepetitivePairs.java
-java FilterRepetitivePairs SCN_LastzResult_500NonCR_sortPair.sorted.txt SCN_LastzResult_500NonCRfiltered.txt 
+java FilterRepetitivePairs $outdir/SCN_MinimapResult_500NonCR_sortPair.sorted.txt $outdir/SCN_MinimapResult_500NonCRfiltered.txt 
 javac Recover.java
-java Recover SCN_LastzResult_500NonCRfiltered.txt SCN_LastzResult_500NonCR_FilterPair.txt 
+java Recover $outdir/SCN_MinimapResult_500NonCRfiltered.txt $outdir/SCN_MinimapResult_500NonCR_FilterPair.txt 
 javac NewExtendPec50.java
-java NewExtendPec50 genome.masked_all.fasta genome.txt SCN_LastzResult_500NonCR_FilterPair.txt SCN_LastzResult_500NonCR_NewExtendPec50.txt 
-rm *.info
-rm SCN_LastzResult.txt
-rm SCN_LastzResult_500NonCR.txt
-rm SCN_LastzResult_500NonCR_sortPair.txt
-rm SCN_LastzResult_500NonCR_sortPair.sorted.txt
-rm SCN_LastzResult_500NonCRfiltered.txt
-rm SCN_LastzResult_500NonCR_FilterPair.txt
+java NewExtendPec50 $outdir/genome.masked_all.fasta $outdir/genome.txt $outdir/SCN_MinimapResult_500NonCR_FilterPair.txt $outdir/SCN_MinimapResult_500NonCR_NewExtendPec50.txt
 javac changeFormatPairwise.java
-java changeFormatPairwise
+java changeFormatPairwise $outdir/genome.masked_all.fasta $outdir/genome_size_Indexes.txt $outdir/SCN_MinimapResult_500NonCR_NewExtendPec50.txt
 echo End pairwise SDs detection. Begin analyze mosaic SDs.
 javac CopyEndPoints.java
-java CopyEndPoints genome.masked_all.fasta BG_SDIndexes.fasta SCN_LastzResult_500NonCR_NewExtendPec50.txt EndpointsLine.txt
-sort -n -k 1 -k 2 -k 3 BG_SDIndexes.fasta > BG_SDIndexes.sorted.fasta
+java CopyEndPoints $outdir/genome.masked_all.fasta $outdir/BG_SDIndexes.fasta $outdir/SCN_MinimapResult_500NonCR_NewExtendPec50.txt $outdir/EndpointsLine.txt
+sort -n -k 1 -k 2 -k 3 $outdir/BG_SDIndexes.fasta > BG_SDIndexes.sorted.fasta
 javac MergeBG.java
-java MergeBG BG_SDIndexes.sorted.fasta BG_MosaicSDs.fasta
+java MergeBG BG_SDIndexes.sorted.fasta $outdir/BG_MosaicSDs.fasta
 javac ElementSDs.java
-java ElementSDs
+java ElementSDs $outdir/genome.masked_all.fasta $outdir/EndpointsLine.txt $outdir/BG_MosaicSDs.fasta
 javac testLength.java
-java testLength
+java testLength $outdir/genome.masked_all.fasta $outdir/SCN_MinimapResult_500NonCR_NewExtendPec50.txt
 javac NewElementSDsPair.java
-java NewElementSDsPair
+java NewElementSDsPair $outdir/genome.masked_all.fasta $outdir/genome.txt $outdir/ClustersLine.txt $outdir/ElementSDs_100.fasta $outdir/SCN_MinimapResult_500NonCR_NewExtendPec50.txt $outdir
 javac SDblock.java
-java SDblock
+java SDblock $outdir/ElementSDs_100.fasta $outdir/ElementSDs_pairwiseEqual.fasta $outdir
 javac ElementSDsMulti.java
-java ElementSDsMulti
+java ElementSDsMulti $outdir/genome_size_Indexes.txt $outdir/ElementSDs_100.fasta $outdir/SCN_MinimapResult_500NonCR_NewExtendPec50.txt $outdir/ElementSDs_LengthAndMulti.fasta
 javac MosaicSDsBlockcompose.java
-java MosaicSDsBlockcompose
-rm ElementSDs*.fasta
-rm length.fasta
-rm Clusters_100.fasta
-rm BadMosaicSD_100.fasta
-rm BG*.fasta
-rm AllSegsOfSCN*.fasta
-rm *.class
-rm *.fasta
-rm genome*.txt
-rm Genome_size_Indexes.txt
-rm *.h5
-rm FrequencyLine.txt
-rm CombineLine.txt
-rm EndpointsLine.txt
-rm SCN_LastzResult_500NonCR_NewExtendPec50.txt
-rm ClustersLine.txt
+java MosaicSDsBlockcompose $outdir/genome_size_Indexes.txt $outdir/MosaicSDs_SDblockIndexes.txt $outdir/ElementSDs_LengthAndMulti.fasta $outdir/blocks.fasta $outdir/BG_MosaicSDs.fasta
+mkdir $outdir/tmp
+mv $outdir/ElementSDs*.fasta $outdir/tmp/
+mv $outdir/length.fasta $outdir/tmp/
+mv $outdir/Clusters_100.fasta $outdir/tmp/
+mv $outdir/BadMosaicSD_100.fasta $outdir/tmp/
+mv $outdir/BG*.fasta $outdir/tmp/
+mv $outdir/AllSegsOfSCN*.fasta $outdir/tmp/
+mv $outdir/*.fasta $outdir/tmp/
+mv $outdir/genome*.txt $outdir/tmp/
+mv $outdir/Genome_size_Indexes.txt $outdir/tmp/
+mv $outdir/*.h5 $outdir/tmp/
+mv $outdir/FrequencyLine.txt $outdir/tmp/
+mv $outdir/CombineLine.txt $outdir/tmp/
+mv $outdir/EndpointsLine.txt $outdir/tmp/
+mv $outdir/SCN_LastzResult_500NonCR_NewExtendPec50.txt $outdir/tmp/
+mv $outdir/ClustersLine.txt $outdir/tmp/
 echo end SDquest analysis

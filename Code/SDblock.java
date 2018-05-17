@@ -21,7 +21,7 @@ public class SDblock {
 	public static void main(String args[]){
 		try{
 			long startTime=System.currentTimeMillis();
-			Scanner in = new Scanner(new File("ElementSDs_100.fasta"));	in.nextLine();
+			Scanner in = new Scanner(new File(args[0]));	in.nextLine();
 			String[] onepair; ArrayList<Integer> length=new ArrayList<Integer>(); 
 			
 			while(in.hasNextLine()){
@@ -30,7 +30,7 @@ public class SDblock {
 			}
 			in.close();
 			
-			in = new Scanner(new File("ElementSDs_pairwiseEqual.fasta"));	
+			in = new Scanner(new File(args[1]));
 			ArrayList<ArrayList<Integer>> firstE=new ArrayList<ArrayList<Integer>>(); ArrayList<ArrayList<Integer>> secondE=new ArrayList<ArrayList<Integer>>();
 			String temp; 
 			
@@ -184,8 +184,9 @@ public class SDblock {
 			for(int i=0;i<ElementSDs.length;i++){
 				ElementSDs[i]=-1;
 			}
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("blocks.fasta")));
-			BufferedWriter writerS = new BufferedWriter(new FileWriter(new File("blocks_Size.fasta")));
+			String outdir = args[2];
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(outdir, "blocks.fasta")));
+			BufferedWriter writerS = new BufferedWriter(new FileWriter(new File(outdir, "blocks_Size.fasta")));
 			writerS.write("index   size   averageL   minL   maxL"); writerS.newLine();
 			
 			for(int i=0;i<blocks.size();i++){

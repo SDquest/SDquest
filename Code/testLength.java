@@ -12,15 +12,15 @@ public class testLength {//
 		try{		
 			long startTime=System.currentTimeMillis();
 			ArrayList<String> CRs=new ArrayList<String>();
-			Scanner inChr = new Scanner(new File("genome.masked_all.fasta"));;
+			Scanner inChr = new Scanner(new File(args[0])); // genome.masked_all.fasta
 			while(inChr.hasNextLine()){
 				inChr.nextLine(); CRs.add(inChr.nextLine());
 			}
 //			System.out.println("end reading! "); 
 			inChr.close();
 			
-			Scanner in=new Scanner(new File("SCN_LastzResult_500NonCR_NewExtendPec50.txt"));//sort by number
-			BufferedWriter writer = new BufferedWriter(new FileWriter(new File("length.fasta")));						
+			Scanner in=new Scanner(new File(args[1])); // SCN_LastzResult_500NonCR_NewExtendPec50.txt sort by number
+			BufferedWriter writer = new BufferedWriter(new FileWriter(new File(args[2])));	// length.fasta
 			in.nextLine(); int length1, length2, chr, start, end;
 			String[] onepair; int index=0;
 			while(in.hasNextLine()){
