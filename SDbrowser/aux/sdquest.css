@@ -1,0 +1,90 @@
+body {
+    margin: 0;
+    font-family: Lucida Grande, Verdana, Arial, sans-serif;
+    font-size: 12px;
+    color: black;
+    padding: 0;
+    padding-bottom: 30px;
+}
+
+#content {
+    margin-left: 120px;
+    padding-top: 50px;
+    clear: both;
+}
+
+.json_code {
+    display: none;
+}
+
+.selection {
+  fill: #2280d8;
+  stroke-width: 0;
+}
+
+.mosaic {
+  opacity: 0.7;
+  pointer-events: painted;
+}
+
+.gene {
+  fill: #2a5daf;
+  height: 20px;
+  pointer-events: none;
+}
+
+.genename {
+  fill: #FFF;
+  font-size: 14px;
+}
+
+.pairwise {
+  pointer-events: none;
+}
+
+.pairwise rect {
+  opacity: 0.7;
+  stroke-width: 0.5;
+  stroke: black;
+}
+
+.focus {
+  fill: none;
+  pointer-events: all;
+}
+
+.menu_div {
+  margin-left: 50px;
+  width: 700px;
+}
+
+.go_btn {
+  padding: 6px !important;
+  padding-top: 1px !important;
+  padding-bottom: 2px !important;
+}
+
+.outer_circle path:first-child {
+    fill: #f2f49c;
+}
+
+.hs {
+  /*
+  10<span class="hs"></span>000 */
+  margin-left: .2em;
+}
+.dotted-link {
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+    /*color: #0c4f72;*/
+    border-bottom: 1px dashed #487b95;
+    border-color: #487b95; /* #487b95 */
+    border-color: rgba(12, 79, 114, 0.5);
+}
+.dotted-link:hover {
+    text-decoration: none;
+    color: #b33 !important;
+    border-bottom: 1px dashed #b33 !important;
+    border-color: rgba(255, 0, 0, 0.2) !important;
+}

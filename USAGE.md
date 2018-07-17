@@ -67,3 +67,6 @@ This file contains positions of all mosaic SDs in the genome. Each line represen
 A test case with 1 Mb simulated genome is attached inside the "Genome" and "maskedGenome" folder under the "Code" directory.
 
 In this 1 Mb simulated genome, there exist 4 mosaic SDs \[A, B] (start at position 100,000), \[A] (start at position 300,000),  \[-B,-A] (start at position 600,000) and  \[-B] (start at position 850,000). A and B represent two SD-blocks with length 2000 bp and 3000 bp respectively. To see output of SDquest on this simulated genome, users can run command "./SDquest.sh 1".
+
+# SD browser
+An interactive SD browser for the human genome (hg19 and hg38 assemblies) is attached under the "SDbrowser" directory as "hg19.html" and "hg38.html".

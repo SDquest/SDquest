@@ -1,0 +1,1150 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<title>SD browser</title>
+<style>
+
+
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="aux/sdquest.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="aux/circos.js"></script>
+<script>
+/**
+ * json-parse-async - The missing JSON.parse async interface.
+ * @version v1.0.3
+ * @link    https://github.com/Kikobeats/json-parse-async
+ * @license MIT
+ */require=function t(n,e,r){function o(s,u){if(!e[s]){if(!n[s]){var c="function"==typeof require&&require;if(!u&&c)return c(s,!0);if(i)return i(s,!0);var f=new Error("Cannot find module '"+s+"'");throw f.code="MODULE_NOT_FOUND",f}var a=e[s]={exports:{}};n[s][0].call(a.exports,function(t){var e=n[s][1][t];return o(e?e:t)},a,a.exports,t,n,e,r)}return e[s].exports}for(var i="function"==typeof require&&require,s=0;s<r.length;s++)o(r[s]);return o}({1:[function(t,n,e){"use strict";t("coffee-script/register"),n.exports=t("./lib/cb2promise")},{"./lib/cb2promise":2,"coffee-script/register":5}],2:[function(t,n,e){"use strict";var r;r=t("pinkie-promise"),n.exports=function(){var t,n,e,o,i;return t=Array.prototype.slice.call(arguments),e=t.shift(),i=null,o=null,n=function(){var n;return t=Array.prototype.slice.call(arguments),n=t.shift(),n?o(n):i.apply(null,t)},t.push(n),new r(function(n,r){return i=n,o=r,e.apply(null,t)})}},{"pinkie-promise":3}],3:[function(t,n,e){(function(e){"use strict";n.exports=e.Promise||t("pinkie")}).call(this,"undefined"!=typeof global?global:"undefined"!=typeof self?self:"undefined"!=typeof window?window:{})},{pinkie:4}],4:[function(t,n,e){"use strict";function r(){for(var t=0;t<x.length;t++)x[t][0](x[t][1]);x=[],y=!1}function o(t,n){x.push([t,n]),y||(y=!0,b(r,0))}function i(t,n){function e(t){c(n,t)}function r(t){a(n,t)}try{t(e,r)}catch(o){r(o)}}function s(t){var n=t.owner,e=n._state,r=n._data,o=t[e],i=t.then;if("function"==typeof o){e=w;try{r=o(r)}catch(s){a(i,s)}}u(i,r)||(e===w&&c(i,r),e===v&&a(i,r))}function u(t,n){var e;try{if(t===n)throw new TypeError("A promises callback cannot return that same promise.");if(n&&("function"==typeof n||"object"==typeof n)){var r=n.then;if("function"==typeof r)return r.call(n,function(r){e||(e=!0,n!==r?c(t,r):f(t,r))},function(n){e||(e=!0,a(t,n))}),!0}}catch(o){return e||a(t,o),!0}return!1}function c(t,n){t!==n&&u(t,n)||f(t,n)}function f(t,n){t._state===g&&(t._state=d,t._data=n,o(l,t))}function a(t,n){t._state===g&&(t._state=d,t._data=n,o(h,t))}function p(t){t._then=t._then.forEach(s)}function l(t){t._state=w,p(t)}function h(t){t._state=v,p(t)}function m(t){if("function"!=typeof t)throw new TypeError("Promise resolver "+t+" is not a function");if(this instanceof m==!1)throw new TypeError("Failed to construct 'Promise': Please use the 'new' operator, this object constructor cannot be called as a function.");this._then=[],i(t,this)}var y,g="pending",d="settled",w="fulfilled",v="rejected",_=function(){},b="undefined"!=typeof setImmediate?setImmediate:setTimeout,x=[];m.prototype={constructor:m,_state:g,_then:null,_data:void 0,then:function(t,n){var e={owner:this,then:new this.constructor(_),fulfilled:t,rejected:n};return this._state===w||this._state===v?o(s,e):this._then.push(e),e.then},"catch":function(t){return this.then(null,t)}},m.all=function(t){if(!Array.isArray(t))throw new TypeError("You must pass an array to Promise.all().");return new m(function(n,e){function r(t){return s++,function(e){i[t]=e,--s||n(i)}}for(var o,i=[],s=0,u=0;u<t.length;u++)o=t[u],o&&"function"==typeof o.then?o.then(r(u),e):i[u]=o;s||n(i)})},m.race=function(t){if(!Array.isArray(t))throw new TypeError("You must pass an array to Promise.race().");return new m(function(n,e){for(var r,o=0;o<t.length;o++)r=t[o],r&&"function"==typeof r.then?r.then(n,e):n(r)})},m.resolve=function(t){return t&&"object"==typeof t&&t.constructor===m?t:new m(function(n){n(t)})},m.reject=function(t){return new m(function(n,e){e(t)})},n.exports=m},{}],5:[function(t,n,e){},{}],6:[function(t,n,e){function r(){a=!1,u.length?f=u.concat(f):p=-1,f.length&&o()}function o(){if(!a){var t=setTimeout(r);a=!0;for(var n=f.length;n;){for(u=f,f=[];++p<n;)u[p].run();p=-1,n=f.length}u=null,a=!1,clearTimeout(t)}}function i(t,n){this.fun=t,this.array=n}function s(){}var u,c=n.exports={},f=[],a=!1,p=-1;c.nextTick=function(t){var n=new Array(arguments.length-1);if(arguments.length>1)for(var e=1;e<arguments.length;e++)n[e-1]=arguments[e];f.push(new i(t,n)),1!==f.length||a||setTimeout(o,0)},i.prototype.run=function(){this.fun.apply(null,this.array)},c.title="browser",c.browser=!0,c.env={},c.argv=[],c.version="",c.versions={},c.on=s,c.addListener=s,c.once=s,c.off=s,c.removeListener=s,c.removeAllListeners=s,c.emit=s,c.binding=function(t){throw new Error("process.binding is not supported")},c.cwd=function(){return"/"},c.chdir=function(t){throw new Error("process.chdir is not supported")},c.umask=function(){return 0}},{}],7:[function(t,n,e){"use strict";t("coffee-script/register"),n.exports=t("./lib")},{"./lib":8,"coffee-script/register":5}],8:[function(t,n,e){"use strict";var r;n.exports=r=function(){function t(t){var n;return n=new Error,"object"==typeof t?this._composeMessageFromObject(n,t):this._composeMessageFromString(n,arguments)}return t.prototype._composeMessageFromObject=function(t,n){var e,r;for(e in n)r=n[e],t[e]=r;return t.code&&(t.message=t.code+", "+t.message),t},t.prototype._composeMessageFromString=function(t,n){var e;return e={3:function(){return t.name=n[0],t.code=n[1],t.message=t.code+", "+n[2]},2:function(){return t.name=n[0],t.message=n[1]},1:function(){return t.message=n[0]},0:function(){}},e[n.length](),t},t}()},{}],"json-parse-async":[function(t,n,e){(function(e){"use strict";function r(t,n){return 1===arguments.length?o(s,t):s(t,n)}var o=t("cb2promise"),i=t("whoops"),s=function(t,n){var r,o;try{r=JSON.parse(t)}catch(s){r={},o=new i({code:"ENOVALIDJSON",message:s.message})}finally{return e.nextTick(function(){return n(o,r)})}};n.exports=r}).call(this,t("_process"))},{_process:6,cb2promise:1,whoops:7}]},{},[]);
+</script>
+
+<svg id="circos" style="float: right; margin-right: 50px;"></svg>
+<div style="margin-left: 50px;">
+<div id="help_bg" style="position: absolute; top: 0; left: 0; z-index:1; background-color: #ccc;
+width: 100%; height:100%; display:none;" onclick="hideHelp()">
+<img id="help" style="width: 900px; height:360px; position: absolute; z-index:2; top: 100px; left:100px; pointer-events: none;"
+src="aux/help.png" /></div>
+  <h2>Human assembly (hg19)<img style="width: 30px; height:30px; margin-left:20px; margin-bottom: 2px;"
+  src="aux/info.png" onclick="showHelp()"/></h2>
+  <h3 id="loading">Loading...</h3>
+  <div id="zoom_out_div" style="float: left; display:none; margin-right: -5px;">
+  <img id="zoom1_out" src="aux/zoom-out.png" style="display: block; margin-top: 65px; width: 20px; height:20px;">
+  <img id="zoom2_out" src="aux/zoom-out.png" style="display: block; margin-top: 350px; width: 20px; height:20px;">
+  </div>
+  <select id="select1" style="position: absolute; left: 31%; top: 80px; margin-left: -10px; display:none;"></select>
+  <select id="select2" style="position: absolute; left: 31%; top: 560px; margin-left: -10px; display:none;"></select>
+  <svg id="main_svg" style="display:none; float: left;"></svg>
+  <select id="select2" style="float: left; display:none; text-align: middle"></select>
+  <div id="zoom_in_div" style="float: left; display:none; margin-left: -5px;">
+  <img id="zoom1_in" src="aux/zoom-in.png" style="display: block; margin-top: 65px; width: 20px; height:20px;">
+  <img id="zoom2_in" src="aux/zoom-in.png" style="display: block; margin-top: 350px; width: 20px; height:20px;">
+  </div>
+</div>
+<script type="text/javascript" src="data/pairwise_data_hg19.json"></script>
+<script type="text/javascript" src="data/interactions_data_hg19.json"></script>
+<script type="text/javascript" src="data/mosaic_hg19.json"></script>
+<script type="text/javascript" src="data/mosaic_structure_hg19.json"></script>
+<script type="text/javascript" src="data/mosaic_info_hg19.json"></script>
+<script type="text/javascript" src="data/genes_hg19.json"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<script>
+
+var chr_data =[{'chrom': 'chr1',
+'class': 'outer_circle chr1',
+id: 'chr1',
+'label': '1',
+'len': 249250621},
+{'chrom': 'chr2',
+'class': 'outer_circle chr2',
+id: 'chr2',
+'label': '2',
+'len': 243199373},
+{'chrom': 'chr3',
+'class': 'outer_circle chr3',
+id: 'chr3',
+'label': '3',
+'len': 198022430},
+{'chrom': 'chr4',
+'class': 'outer_circle chr4',
+id: 'chr4',
+'label': '4',
+'len': 191154276},
+{'chrom': 'chr5',
+'class': 'outer_circle chr5',
+id: 'chr5',
+'label': '5',
+'len': 180915260},
+{'chrom': 'chr6',
+'class': 'outer_circle chr6',
+id: 'chr6',
+'label': '6',
+'len': 171115067},
+{'chrom': 'chr7',
+'class': 'outer_circle chr7',
+id: 'chr7',
+'label': '7',
+'len': 159138663},
+{'chrom': 'chr8',
+'class': 'outer_circle chr8',
+id: 'chr8',
+'label': '8',
+'len': 146364022},
+{'chrom': 'chr9',
+'class': 'outer_circle chr9',
+id: 'chr9',
+'label': '9',
+'len': 141213431},
+{'chrom': 'chr10',
+'class': 'outer_circle chr10',
+id: 'chr10',
+'label': '10',
+'len': 135534747},
+{'chrom': 'chr11',
+'class': 'outer_circle chr11',
+id: 'chr11',
+'label': '11',
+'len': 135006516},
+{'chrom': 'chr12',
+'class': 'outer_circle chr12',
+id: 'chr12',
+'label': '12',
+'len': 133851895},
+{'chrom': 'chr13',
+'class': 'outer_circle chr13',
+id: 'chr13',
+'label': '13',
+'len': 115169878},
+{'chrom': 'chr14',
+'class': 'outer_circle chr14',
+id: 'chr14',
+'label': '14',
+'len': 107349540},
+{'chrom': 'chr15',
+'class': 'outer_circle chr15',
+id: 'chr15',
+'label': '15',
+'len': 102531392},
+{'chrom': 'chr16',
+'class': 'outer_circle chr16',
+id: 'chr16',
+'label': '16',
+'len': 90354753},
+{'chrom': 'chr17',
+'class': 'outer_circle chr17',
+id: 'chr17',
+'label': '17',
+'len': 81195210},
+{'chrom': 'chr18',
+'class': 'outer_circle chr18',
+id: 'chr18',
+'label': '18',
+'len': 78077248},
+{'chrom': 'chr19',
+'class': 'outer_circle chr19',
+id: 'chr19',
+'label': '19',
+'len': 59128983},
+{'chrom': 'chr20',
+'class': 'outer_circle chr20',
+id: 'chr20',
+'label': '20',
+'len': 63025520},
+{'chrom': 'chr21',
+'class': 'outer_circle chr21',
+id: 'chr21',
+'label': '21',
+'len': 48129895},
+{'chrom': 'chr22',
+'class': 'outer_circle chr22',
+id: 'chr22',
+'label': '22',
+'len': 51304566},
+{'chrom': 'chrX',
+'class': 'outer_circle chrX',
+id: 'chrX',
+'label': 'X',
+'len': 155270560},
+{'chrom': 'chrY',
+'class': 'outer_circle chrY',
+id: 'chrY',
+'label': 'Y',
+'len': 59373566}]
+
+var minIDY = 0.7, maxIDY = 1;
+var step = d3.scaleLinear()
+.domain([1, 8])
+.range([minIDY, maxIDY]);
+var colors = d3.scaleLinear()
+.domain([minIDY, step(2), step(3), step(4), step(5), step(6), step(7), maxIDY])
+.range(['#d73027', '#f46d43', '#fdae61', '#fee08b', '#d9ef8b', '#a6d96a', '#66bd63','#1a9850'])
+.interpolate(d3.interpolateRgb);
+
+var widthPercentSvg = 60;
+var heightSvg = 540;
+var svg = d3.select("#main_svg")
+.attr('width', widthPercentSvg + '%')
+.attr('height', heightSvg)
+.attr('overflow', "visible");
+var marginRight = 50, marginLeft = 10;
+var margin = {top: 60, right: marginRight, left: marginLeft},
+marginFocus = {top: 200, right: marginRight, left: marginLeft},
+marginFocus2 = {top: 290, right: marginRight, left: marginLeft},
+margin2 = {top: 410, right: marginRight, left: marginLeft},
+width = (widthPercentSvg / 100 * $(window).width()) - margin.left - margin.right,
+heightContext = svg.attr("height") - margin.top - margin.bottom,
+heightFocus = svg.attr("height") - marginFocus.top - marginFocus.bottom,
+heightFocus2 = svg.attr("height") - marginFocus2.top -marginFocus2.bottom,
+heightContext2 = svg.attr("height") - margin2.top - margin2.bottom
+height = 50;
+
+var x = d3.scaleLinear().range([0, width]),
+xFocus = d3.scaleLinear().range([0, width]),
+xFocus2 = d3.scaleLinear().range([0, width]),
+x2 = d3.scaleLinear().range([0, width]),
+y = d3.scaleLinear().range([heightContext, 0]),
+yFocus = d3.scaleLinear().range([heightFocus, 0]),
+yFocus2 = d3.scaleLinear().range([heightFocus2, 0]);
+y2 = d3.scaleLinear().range([heightContext2, 0]);
+
+var xAxis = d3.axisTop(x).ticks(10),
+xAxisFocus = d3.axisTop(xFocus).ticks(10),
+xAxisFocus2 = d3.axisBottom(xFocus2).ticks(10),
+xAxis2 = d3.axisBottom(x2).ticks(10);
+
+svg.append("defs").append("clipPath")
+.attr("id", "clip")
+.append("rect")
+.attr("width", width)
+.attr("height", height);
+
+var focus = svg.append("g")
+.attr("class", "focus zoom")
+.attr("transform", "translate(" + marginFocus.left + "," + marginFocus.top + ")");
+var pairwise = svg.append("g")
+.attr("class", "pairwise")
+.attr("transform", "translate(" + marginFocus.left + "," + marginFocus.top + ")");
+var genesTrack = svg.append("g")
+.attr("class", "genes")
+.attr("transform", "translate(" + marginFocus.left + "," + (marginFocus.top - 67) + ")");
+
+var focus2 = svg.append("g")
+.attr("class", "focus zoom")
+.attr("transform", "translate(" + marginFocus2.left + "," + marginFocus2.top + ")");
+var pairwise2 = svg.append("g")
+.attr("class", "pairwise")
+.attr("transform", "translate(" + marginFocus2.left + "," + marginFocus2.top + ")");
+var genesTrack2 = svg.append("g")
+.attr("class", "genes")
+.attr("transform", "translate(" + marginFocus2.left + "," + (marginFocus2.top + 85) + ")");
+
+var context = svg.append("g")
+.attr("class", "context")
+.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var context2 = svg.append("g")
+.attr("class", "context")
+.attr("transform", "translate(" + margin2.left + "," + margin2.top + ")");
+
+var interactionsLayer = svg.append("g")
+.attr("class", "interactions")
+.attr("transform", "translate(" + margin2.left + "," + (marginFocus.top + height) + ")");
+
+var pairwise_data = JSON.parse(pairwise_alignments);
+var mosaic_sd_structure = JSON.parse(mosaic_structure);
+var mosaic_info = JSON.parse(mosaic_info);
+var mosaic_data = JSON.parse(mosaic_sds);
+var interactions_data = JSON.parse(interactions);
+var gene_data = JSON.parse(genes);
+var chr1 = 'chr22';
+var chr2 = 'chr22';
+var startPos1, lastPos1, startPos2, lastPos2;
+var info, info_title;
+var chrData1, chrData2, chromInteractions, pairsChr1, pairsChr2;
+var xChr1Scale = x, xChr2Scale = x2;
+var params1, params2;
+var selected_sd_data1 = [], selected_sd_data2 = [];
+addInfo();
+var params = getCoordsFromURL();
+var chrLen1 = getChromLen(chr1);
+var chrLen2 = getChromLen(chr2);
+if (!startPos1 && !lastPos1)
+  startPos1 = chrLen1 / 2 - 500000,
+  lastPos1 = chrLen1 / 2 + 500000;
+if (!startPos2 && !lastPos2)
+  startPos2 = chrLen2 / 2 - 500000,
+  lastPos2 = chrLen2 / 2 + 500000;
+loadData();
+var circos;
+loadCircos();
+addChromSelectors();
+addZoomBtns();
+
+if (params.select == 'alignment') {
+  setCoords(startPos1, lastPos1, startPos2, lastPos2, [], [startPos1, lastPos1, startPos2, lastPos2, params.idy / 100]);
+}
+else if (params.select == 'block') {
+  setCoords(startPos1, lastPos1, startPos2, lastPos2, [startPos1, lastPos1, params.idy / 100]);
+}
+else {
+  setCoords(startPos1, lastPos1, startPos2, lastPos2);
+}
+
+function loadData() {
+  chrData1 = mosaic_data[chr1];
+  chrData2 = mosaic_data[chr2];
+  chromInteractions = interactions_data[chr1 + chr2];
+  genes1 = gene_data[chr1];
+  genes2 = gene_data[chr2];
+  params1 = addSDs(focus, context, genesTrack, pairwise, chrData1, genes1, chr1, x, xFocus, y, yFocus, xAxisFocus, true, marginFocus.left, marginFocus.top, startPos1, lastPos1);
+  params2 = addSDs(focus2, context2, genesTrack2, pairwise2, chrData2, genes2, chr2, x2, xFocus2, y2, yFocus2, xAxisFocus2, false, marginFocus2.left, marginFocus2.top, startPos2, lastPos2);
+  addInteractions(interactionsLayer, xFocus, xFocus2, chromInteractions);
+  document.getElementById('loading').style.display = "none";
+  document.getElementById('main_svg').style.display = "";
+  document.getElementById('select1').style.display = "";
+  document.getElementById('select2').style.display = "";
+  document.getElementById('zoom_out_div').style.display = "";
+  document.getElementById('zoom_in_div').style.display = "";
+}
+
+function loadCircos() {
+  var circosWidth = parseInt($(window).width() * 0.3);
+  document.getElementById('circos').style.width = circosWidth;
+  document.getElementById('circos').style.height = circosWidth;
+  circos = new Circos({
+    container: '#circos',
+    width: circosWidth,
+    height: circosWidth
+  });
+  var configuration = {
+    innerRadius: circosWidth / 2 - 100,
+    outerRadius: circosWidth / 2 - 60,
+    cornerRadius: 0,
+    gap: 0.03, // in radian
+    labels: {
+      display: true,
+      position: 'center',
+      size: '8px',
+      color: '#000000',
+      radialOffset: 12,
+    },
+    ticks: {
+      display: false,
+      color: 'grey',
+      spacing: 10000000,
+      labels: false,
+      labelSpacing: 10,
+      labelSuffix: 'Mb',
+      labelDenominator: 1000000,
+      labelDisplay0: false,
+      labelSize: '6px',
+      labelColor: '#000000',
+      labelFont: 'default',
+      majorSpacing: 5,
+      size: {
+        minor: 2,
+        major: 4,
+      }
+    },
+    events: {}
+  }
+  circos.layout(chr_data, configuration);
+  /*
+  sd_highlights = [];
+
+  for (var chrom in mosaic_data) {
+    prev_start = 0;
+    prev_end = 0;
+    for (var item_n = 0; item_n < mosaic_data[chrom].length; item_n++) {
+      start = mosaic_data[chrom][item_n][0], end = mosaic_data[chrom][item_n][1];
+      if (start - prev_end < 100000) {
+        start = prev_start;
+      }
+      else {
+        sd_highlights.push({
+            block_id: chrom,
+            start: parseInt(prev_start),
+            end: parseInt(prev_end)
+        })
+      }
+      prev_start = start,
+      prev_end = end;
+    }
+    sd_highlights.push({
+        block_id: chrom,
+        start: parseInt(prev_start),
+        end: parseInt(prev_end)
+    })
+  }
+  circos.highlight('cytobands', sd_highlights, {
+      innerRadius: 150,
+      outerRadius: 200,
+      opacity: 0.5,
+      color: '#7c0303'})*/
+  circos.render();
+}
+
+function removeCircosChords() {
+  circos.chords('sv', []);
+}
+
+function addCircosChords(block, curChrom) {
+  removeCircosChords();
+  var chords = []
+  structure = mosaic_sd_structure[curChrom][block[0] + '-' + block[1]];
+  for (var item_n = 0; item_n < structure.length; item_n++) {
+    var align = structure[item_n];
+    //console.log(align)
+    var start1 = align[0], end1 = align[1], start2 = align[3], end2 = align[4], chrPair = align[2], idy = align[5];
+    chords.push({
+      source: {
+        id: curChrom,
+        start: parseInt(start1) - 3000000,
+        end: parseInt(end1) + 3000000
+      },
+      target: {
+        id: chrPair,
+        start: parseInt(start2) - 3000000,
+        end: parseInt(end2) + 3000000
+      },
+      idy: idy
+    });
+  }
+  circos.chords('sv', chords, {color: function(d) {
+    return colors(d.idy)
+  }});
+  circos.render();
+}
+
+function addInfo() {
+  var menuContainer = d3.select('body').append('div')
+  .attr('class', 'menu_div panel panel-default')
+  .attr('style', 'margin-left: 280px; clear:left;')
+  info_title = menuContainer.append('div')
+  .attr('class', 'panel-heading').append('h3').attr('class', 'panel-title');
+  info = menuContainer.append('div')
+  .attr('class', 'panel-body');
+  clearInfo();
+  info_title.text('SD info');
+  info.append('p').append('text').text('Click on the SD to see a detailed information');
+}
+
+function addChromSelectors() {
+  setupChromosomeSelector('select1', chr1);
+  setupChromosomeSelector('select2', chr2);
+}
+
+
+function calculateZoom(zoomDirection, xScale, xFocusScale) {
+  var startCoord = xFocusScale(xScale.domain()[0]), endCoord = xFocusScale(xScale.domain()[1]);
+  var centerPos = startCoord + (endCoord - startCoord) / 2;
+  var newStartCoord = null, newEndCoord = null;
+  if (zoomDirection == 'in' && endCoord - startCoord > 4) {
+    var delta = (endCoord - startCoord) / 4;
+    newStartCoord = Math.max(centerPos - delta, xScale.range()[0])
+    newEndCoord = Math.min(centerPos + delta, xScale.range()[1])
+  }
+  else if (zoomDirection == 'out') {
+    var delta = endCoord - startCoord;
+    newStartCoord = Math.max(centerPos - delta, xScale.range()[0])
+    newEndCoord = Math.min(centerPos + delta, xScale.range()[1])
+  }
+  return [newStartCoord, newEndCoord];
+}
+
+function addZoomBtns() {
+  document.getElementById('zoom1_in').addEventListener("click", function() {
+    var coords = calculateZoom('in', x, xFocus);
+    if (coords[1]) {
+      context.select(".brush").call(params1.brush.move, [coords[0], coords[1]]);
+      focus.call(params1.zoom.transform, d3.zoomIdentity
+                          .scale(width / (coords[1] - coords[0]))
+                          .translate(-coords[0], 0));
+    }
+  });
+  document.getElementById('zoom1_out').addEventListener("click", function() {
+    var coords = calculateZoom('out', x, xFocus);
+    if (coords[1]) {
+      context.select(".brush").call(params1.brush.move, [coords[0], coords[1]]);
+      focus.call(params1.zoom.transform, d3.zoomIdentity
+                          .scale(width / (coords[1] - coords[0]))
+                          .translate(-coords[0], 0));
+    }
+  });
+  document.getElementById('zoom2_in').addEventListener("click", function() {
+    var coords = calculateZoom('in', x2, xFocus2);
+    if (coords[1]) {
+      context2.select(".brush").call(params2.brush.move, [coords[0], coords[1]]);
+      focus2.call(params2.zoom.transform, d3.zoomIdentity
+                          .scale(width / (coords[1] - coords[0]))
+                          .translate(-coords[0], 0));
+    }
+  });
+  document.getElementById('zoom2_out').addEventListener("click", function() {
+    var coords = calculateZoom('out', x2, xFocus2);
+    if (coords[1]) {
+      context2.select(".brush").call(params2.brush.move, [coords[0], coords[1]]);
+      focus2.call(params2.zoom.transform, d3.zoomIdentity
+                          .scale(width / (coords[1] - coords[0]))
+                          .translate(-coords[0], 0));
+    }
+  });
+}
+
+function addInteractions(layer, xScale, xScale2, data) {
+  layer.selectAll("polygon")
+  .data(data)
+  .enter().append("polygon")
+  .attr("points",function(block) {
+    points = getPolygonPoints(block);
+    return points.map(function(d) {
+      return [d.x,d.y].join(",");
+    }).join(" ");
+  })
+  .attr("class", "interactions")
+  .attr('fill', function(block) {
+    return colors(block[4]);
+  })
+  .attr('pointer-events', 'painted');
+
+}
+
+function getChromLen(chrName) {
+  for (var chr_n = 0; chr_n < chr_data.length; chr_n++) {
+    if (chr_data[chr_n]['chrom'] == chrName)
+      return chr_data[chr_n]['len']
+  }
+  return 0;
+}
+
+function addSDs(focusLayer, contextLayer, genesLayer, pairwiseLayer, data, genes, chrName, xScale, xFocusScale, yScale, yFocusScale, xLayerAxis, isChrom1, leftMargin, topMargin, startPos, lastPos) {
+  chromLen = getChromLen(chrName);
+  chromLen = chromLen ? chromLen : data[data.length-1][1] + 1;
+  startPos = startPos ? startPos : 0;
+  lastPos = lastPos ? lastPos : chromLen;
+  xScale.domain([0, chromLen]);
+  yScale.domain([0, height]);
+  xFocusScale.domain(xScale.domain());
+  yFocusScale.domain(yScale.domain());
+
+  var brush = d3.brushX();
+  brush.extent([[0, 0], [width, height]]);
+
+  var maxZoom = 300;
+  var zoom = d3.zoom()
+  .scaleExtent([1, Infinity])
+  .translateExtent([[0, 0], [width, height]])
+  .extent([[0, 0], [width, height]])
+  .on("zoom", function() {
+    if (xScale.domain()[1] - xScale.domain()[0] > maxZoom)
+    return zoomed(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, brush, isChrom1)
+  });
+
+  brush
+  .on("brush end", function() {
+    return brushed(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, zoom, isChrom1)
+  });
+
+  focusLayer.selectAll("rect")
+  .data(data)
+  .enter().append('rect')
+  .attr("class", "mosaic")
+  .attr("height", height)
+  .attr("width", function (block) {
+    return getItemWidth(block, xScale);
+  })
+  .attr('transform', function (block) {
+    var xCoord = getItemStart(block, xScale)
+    return 'translate(' + xCoord + ', 0)';
+  })
+  .attr('fill', function(block) {
+    return colors(block[2]);
+  });
+
+  focusLayer.append("g")
+  .attr("class", "axis axis--x")
+  .attr("transform", "translate(0," + (isChrom1 ? 0 : height) + ")")
+  .call(xLayerAxis);
+
+  genesLayer.selectAll("rect")
+  .data(genes)
+  .enter().append('rect')
+  .attr("class", "gene")
+  .attr("width", function (block) {
+    return getItemWidth(block, xScale);
+  })
+  .attr('transform', function (block) {
+    var xCoord = getItemStart(block, xScale)
+    return 'translate(' + xCoord + ', 0)';
+  });
+
+  var prevX = 0;
+  var visGeneNames = genes.filter(function (block) {
+    var textStart = getItemStart(block, xScale);
+    if (textStart - prevX > 20) {
+        var visWidth = getItemEnd(block, xScale) - textStart;
+        textLen = block[2].length * 6;
+        if (visWidth > textLen) {
+            prevX = textStart + textLen - 5;
+            return block;
+        }
+    }
+  });
+
+  genesLayer.selectAll("text")
+  .data(visGeneNames)
+  .enter().append('text')
+  .attr("class", "genename")
+  .attr('x', function(textItem) {
+      return getItemStart(textItem, xScale) + 1;
+  })
+  .attr('y', 14)
+  .text(function(textItem) {
+    return textItem[2];
+  });
+
+  contextLayer.selectAll("rect")
+  .data(data)
+  .enter().append('rect')
+  .attr("class", "mosaic")
+  .attr("height", height)
+  .attr('fill', '#ccc')
+  .attr("width", function (block) {
+    return getItemWidth(block, xScale);
+  })
+  .attr('transform', function (block) {
+    var xCoord = getItemStart(block, xScale)
+    return 'translate(' + xCoord + ', 0)';
+  });
+
+  /*var overviewOffset = width / 2 - 50;
+  contextLayer.append('g')
+  .attr('class', 'main_labels')
+  .attr('transform', 'translate(' + overviewOffset + ', ' + (isChrom1 ? -28 : 68) + ')')
+  .append('text')
+  .text('overview')
+  .attr('text-anchor', 'start');*/
+
+  genesLayer.append('g')
+  .attr('class', 'main_labels')
+  .attr('transform', 'translate(-50, 10)')
+  .append('text')
+  .text('genes')
+  .attr('text-anchor', 'start');
+
+  contextLayer.append("g")
+  .attr("class", "axis axis--x")
+  .attr("transform", "translate(0," + (isChrom1 ? -0.5 : height-0.5) + ")")
+  .call(xLayerAxis);
+
+  contextLayer.append("g")
+  .attr("class", "brush")
+  .call(brush)
+  .call(brush.move, xScale.range());
+
+  focusLayer
+  .call(zoom);
+  return {zoom: zoom,brush: brush};
+}
+
+function setupChromosomeSelector(chrSelectorId, selectedValue) {
+    chroms = Object.keys(mosaic_data);
+    chroms = chroms.sort(naturalCompare);
+    chrSelector = document.getElementById(chrSelectorId);
+    for (var i = 0; i < chroms.length; i++) {
+        var option = document.createElement('option');
+        var chr = chroms[i];
+        if (chr.length > 35) {
+            chr = chr.slice(0, 30) + '...'
+        }
+        option.text = chr;
+        option.value = i;
+        if (chr == selectedValue) option.selected = 'selected';
+        chrSelector.appendChild(option);
+    }
+    chrSelector.onchange = function(event) {
+      chr1 = chroms[document.getElementById('select1').selectedIndex];
+      chr2 = chroms[document.getElementById('select2').selectedIndex];
+        filename = document.location.href.split("/").pop().split("?")[0]
+        location.href = filename + '?chr1=' + chr1 + '&chr2=' + chr2;
+    };
+}
+
+function brushed(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, zoom, isChrom1) {
+  if (d3.event.sourceEvent && d3.event.sourceEvent.type === "zoom") return; // ignore brush-by-zoom
+  var s = d3.event.selection || xFocusScale.range();
+  xScale.domain(s.map(xFocusScale.invert, xFocusScale));
+  if (isChrom1) xChr1Scale = xScale;
+  else xChr2Scale = xScale;
+  reloadData(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, isChrom1);
+  focusLayer.call(zoom.transform, d3.zoomIdentity
+    .scale(width / (s[1] - s[0]))
+    .translate(-s[0], 0));
+  }
+
+  function zoomed(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, brush, isChrom1) {
+    if (d3.event.sourceEvent && d3.event.sourceEvent.type === "brush") return; // ignore zoom-by-brush
+    var t = d3.event.transform;
+    xScale.domain(t.rescaleX(xFocusScale).domain());
+    reloadData(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, isChrom1);
+    contextLayer.select(".brush").call(brush.move, xScale.range().map(t.invertX, t));
+  }
+
+  function reloadData(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, contextLayer, genesLayer, pairwiseLayer, isChrom1) {
+    visItems = data.filter(function (block) {
+      if (xScale(block[0]) < xScale.range()[1] && xScale(block[1]) > xScale.range()[0]) {
+        return block;
+      }
+    });
+    selected_sd_data = isChrom1 ? selected_sd_data1 : selected_sd_data2;
+    visPairwise = selected_sd_data.filter(function (block) {
+      if (xScale(block[0]) < xScale.range()[1] && xScale(block[1]) > xScale.range()[0]) {
+        return block;
+      }
+    });
+    visGenes = genes.filter(function (block) {
+      if (xScale(block[0]) < xScale.range()[1] && xScale(block[1]) > xScale.range()[0]) {
+        return block;
+      }
+    });
+    var prevX = -21;
+    var visGeneNames = visGenes.filter(function (block) {
+      var textStart = getItemStart(block, xScale);
+      if (textStart - prevX > 20) {
+          var visWidth = getItemEnd(block, xScale) - textStart;
+          textLen = block[2].length * 6;
+          if (visWidth > textLen) {
+              prevX = textStart + textLen - 5;
+              return block;
+          }
+      }
+  });
+    visInteractions = chromInteractions.filter(function (block) {
+      if ((xChr1Scale(block[0]) < xChr1Scale.range()[1] && xChr1Scale(block[1]) > xChr1Scale.range()[0]) && (xChr2Scale(block[2]) < xChr2Scale.range()[1] && xChr2Scale(block[3]) > xChr2Scale.range()[0])) {
+        return block;
+      }
+    });
+    oldItems = focusLayer.selectAll(".mosaic")
+    .data(visItems);
+    oldItems.exit().remove();
+    var newItems = oldItems.enter().append('rect')
+    .attr("class", "mosaic")
+    .attr("height", height)
+    .merge(oldItems)
+    .attr("width", function (block) {
+      return getItemWidth(block, xScale);
+    })
+    .attr('transform', function (block) {
+      var xCoord = getItemStart(block, xScale)
+      return 'translate(' + xCoord + ', 0)';
+    })
+    .attr('fill', function(block) {
+      return colors(block[2]);
+    })
+    .on('mousedown', function(block) {
+      curChrom = isChrom1 ? chr1 : chr2;
+      curPair = isChrom1 ? chr2 : chr1;
+      showBlocks(block, curChrom, curPair, isChrom1);
+      showSDinfo(block, curChrom, curPair, xScale);
+    });
+
+    oldItems = pairwiseLayer.selectAll(".pairwise")
+    .data(visPairwise);
+    oldItems.exit().remove();
+    var newItems = oldItems.enter().append('rect')
+    .attr("class", "pairwise")
+    .attr("height", height)
+    .merge(oldItems)
+    .attr('fill', function(block) {
+      return colors(block[2]);
+    })
+    .attr("width", function (block) {
+      return getItemWidth(block, xScale);
+    })
+    .attr('transform', function (block) {
+      var xCoord = getItemStart(block, xScale)
+      return 'translate(' + xCoord + ', 0)';
+    });
+
+    oldItems = genesLayer.selectAll("rect")
+    .data(visGenes);
+    oldItems.exit().remove();
+    var newItems = oldItems.enter().append('rect')
+    .attr("class", "gene")
+    .merge(oldItems)
+    .attr("width", function (block) {
+      return getItemWidth(block, xScale);
+    })
+    .attr('transform', function (block) {
+      var xCoord = getItemStart(block, xScale)
+      return 'translate(' + xCoord + ', 0)';
+    });
+
+    genesLayer.selectAll("text").remove();
+    genesLayer.selectAll("text")
+    .data(visGeneNames)
+    .enter().append('text')
+    .attr("class", "genename")
+    .attr('x', function(textItem) {
+        return getItemStart(textItem, xScale) + 1;
+    })
+    .attr('y', 14)
+    .text(function(textItem) {
+      return textItem[2];
+    });
+
+    oldItems = interactionsLayer.selectAll("polygon")
+    .data(visInteractions);
+    oldItems.exit().remove();
+    var newItems = oldItems.enter().append('polygon')
+    .attr("class", "interactions")
+    .merge(oldItems)
+    .attr('fill', function(block) {
+      return colors(parseFloat(block[4]));
+    })
+    .attr("points",function(block) {
+      points = getPolygonPoints(block);
+      return points.map(function(d) {
+        return [d.x,d.y].join(",");
+      }).join(" ");
+    })
+    .on('mousedown', function(block) {
+      showBlocks(block, chr1, chr2, isChrom1);
+      showInteractionsinfo(block);
+    });
+    xLayerAxis = isChrom1 ? d3.axisTop(xScale) : d3.axisBottom(xScale);
+    focusLayer.select(".axis--x").call(xLayerAxis.ticks(7));
+  }
+
+  function deselectBlocks() {
+    pairwise.selectAll("rect").remove();
+    pairwise2.selectAll("rect").remove();
+  }
+
+  function showBlocks(block, curChrom, curPair, isChrom1) {
+    deselectBlocks();
+    selected_sd_data1 = [];
+    selected_sd_data2 = [];
+    if (block.length == 3) {
+      structure = mosaic_sd_structure[curChrom][block[0] + '-' + block[1]];
+      for (var item_n = 0; item_n < structure.length; item_n++) {
+        align = structure[item_n];
+        start1 = parseInt(align[0]), end1 = parseInt(align[1]), start2 = parseInt(align[3]), end2 = parseInt(align[4]), chrPair = align[2], idy = align[5];
+        if (isChrom1 && curChrom == chr1) {
+          selected_sd_data1.push([start1, end1, idy])
+        }
+        else if (!isChrom1 && curChrom == chr2) {
+          selected_sd_data2.push([start1, end1, idy])
+        }
+        if (isChrom1 && chrPair == chr2) {
+          selected_sd_data2.push([start2, end2, idy])
+        }
+        else if (!isChrom1 && chrPair == chr1) {
+          selected_sd_data1.push([start2, end2, idy])
+        }
+      }
+    }
+    else {
+      block1 = [parseInt(block[0]), parseInt(block[1]), block[4]];
+      block2 = [parseInt(block[2]), parseInt(block[3]), block[4]];
+      selected_sd_data1 = [block1];
+      selected_sd_data2 = [block2];
+    }
+
+    visPairwise1 = selected_sd_data1.filter(function (block) {
+      if (x(block[0]) < x.range()[1] && x(block[1]) > x.range()[0] && x(block[1]) - x(block[0]) > 1) {
+        return block;
+      }
+    });
+    visPairwise2 = selected_sd_data2.filter(function (block) {
+      if (x2(block[0]) < x2.range()[1] && x2(block[1]) > x2.range()[0]) {
+        return block;
+      }
+    });
+      pairwise.selectAll("rect")
+      .data(visPairwise1)
+      .enter().append('rect')
+      .attr("class", "pairwise")
+      .attr("width", function (block) {
+        return getItemWidth(block, x);
+      })
+      .attr("height", height)
+      .attr('transform', function (block) {
+        var xCoord = getItemStart(block, x)
+        return 'translate(' + xCoord + ', 0)';
+      })
+      .attr('fill', function(block) {
+        return colors(block[2]);
+      });
+      pairwise2.selectAll("rect")
+      .data(visPairwise2)
+      .enter().append('rect')
+      .attr("class", "pairwise")
+      .attr("width", function (block) {
+        return getItemWidth(block, x2);
+      })
+      .attr("height", height)
+      .attr('transform', function (block) {
+        var xCoord = getItemStart(block, x2)
+        return 'translate(' + xCoord + ', 0)';
+      })
+      .attr('fill', function(block) {
+        return colors(block[2]);
+      });
+  }
+
+  function showSDinfo(block, curChrom, curPair, xScale) {
+    clearInfo();
+    info_title.text('Mosaic SD: ' + formatCoord(block[0]) + '-' + formatCoord(block[1]));
+    var mainPanel = info.append('div')
+    .attr('class', 'panel-group').attr('id', 'SDinfo');
+    link = 'graph.html?chr=' + curChrom + '&start=' + block[0] + '&end=' + block[1];
+    sd_info = mosaic_info[curChrom][block[0] + '-' + block[1]];
+
+    mainPanel.append('a').text('Complexity')
+    .attr('href', '#')
+    .attr('style', 'font-size:14px')
+    .attr('class', 'dotted-link')
+    .attr('data-toggle', 'tooltip')
+    .attr('title', 'The complexity is the number of elementary SDs in this mosaic SD')
+    .attr('data-delay', '\'{"show":"70", "hide":"100"}\'')
+    mainPanel.append('span')
+    .attr('style', 'font-size:14px')
+    .text(': ' + sd_info[0] + ', ');
+    mainPanel.append('a').text('multiplicity')
+    .attr('href', '#')
+    .attr('style', 'font-size:14px;')
+    .attr('class', 'dotted-link')
+    .attr('data-toggle', 'tooltip')
+    .attr('title', 'The multiplicity is the average multiplicity of elementary SDs in this mosaic SD')
+    .attr('data-delay', '\'{"show":"70", "hide":"100"}\'')
+    mainPanel.append('span')
+    .attr('style', 'font-size:14px')
+    .text(': ' + sd_info[1]);
+    $('[data-toggle="tooltip"]').tooltip();
+    mainPanel.append('span').text('. ');
+    /*mainPanel.append('a')
+    .attr('href', link)
+    .attr('style', 'font-size:14px')
+    .attr('target', '_blank')
+    .text('Click');
+    mainPanel.append('span')
+    .attr('style', 'font-size:14px')
+    .text(' to see in the breakpoint graph.');*/
+    mainPanel.append('br');
+    mainPanel.append('br');
+    mainPanel.append('p')
+    .attr('style', 'font-size:16px; font-weight: bold')
+    .text('Pairwise alignments:');
+    structure = mosaic_sd_structure[curChrom][block[0] + '-' + block[1]];
+    var alignsByChrom = {};
+    var curAligns = []
+    for (var item_n = 0; item_n < structure.length; item_n++) {
+      var align = structure[item_n];
+      chrPair = align[2];
+      if (chrPair == curPair) {
+        curAligns.push(align);
+      }
+      else {
+        if (!alignsByChrom[chrPair]) alignsByChrom[chrPair] = [];
+        align[0], end1 = align[1], start2 = align[3], end2 = align[4], chrPair = align[2], idy = align[5];
+        alignsByChrom[chrPair].push(align);
+      }
+    }
+    var chroms = Object.keys(alignsByChrom);
+    chroms = chroms.sort(naturalCompare);
+    if (curAligns.length > 0) chroms.splice(0, 0, curPair);
+    alignsByChrom[curPair] = curAligns;
+    for (var chrom_n = 0; chrom_n < chroms.length; chrom_n++) {
+      chrom = chroms[chrom_n];
+      chrPanel = mainPanel.append('div')
+      .attr('class', 'panel panel-default');
+      chrPanel.append('div')
+      .attr('class', 'panel-heading')
+      .append('h4')
+      .attr('class', 'panel-title')
+      .append('a').attr('data-toggle', 'collapse')
+      .attr('href', '#collapse' + chrom).text(chrom == curPair ? chrom + ' (active)': chrom)
+      .append('span').attr('class', 'badge badge-pill badge-light')
+      .attr('style', 'float:right')
+      .text(alignsByChrom[chrom].length)
+      alignList = chrPanel.append('div')
+      .attr('class', 'panel-collapse collapse in').attr('id', 'collapse' + chrom)
+      .append('ul').attr('class', 'list-group')
+      for (var item_n = 0; item_n < alignsByChrom[chrom].length; item_n++) {
+        var align = alignsByChrom[chrom][item_n]
+        appendLink(align, alignList, curChrom, curPair);
+      }
+    }
+    addCircosChords(block, curChrom);
+  }
+
+  function appendLink(align, alignList, curChrom, curPair) {
+    var start1 = align[0], end1 = align[1], start2 = align[3], end2 = align[4], chrPair = align[2], idy = align[5];
+    var alignText = formatCoord(start2) + '-' + formatCoord(end2) + ' aligned to ' +
+    formatCoord(start1) + '-' + formatCoord(end1) + ' (IDY ' + (idy * 100) + '%) ';
+    var alignInfo = alignList.append('li').attr('class', 'list-group-item').text(alignText);
+    var positionLink = alignInfo.append('button').attr('class', 'btn btn-info go_btn').append('a');
+    positionLink.style('cursor', 'pointer')
+    if (curPair != chrPair) {
+      filename = document.location.href.split("/").pop().split("?")[0]
+      link = filename;
+      link += '?chr1=' + curChrom + '&chr2=' + chrPair + '&start1=' + start1 + '&end1=' + end1 +
+      '&start2=' + start2 + '&end2=' + end2 + '&idy=' + (idy * 100) + '&select=alignment';
+      positionLink.attr('href', link)
+      .attr('target', '_blank')
+      .style('color', '#FFF')
+      .text('>');
+    }
+    else {
+      positionLink
+      .style('color', '#FFF')
+      .text('>')
+      .on('click', function () {
+        if (chr1 == curChrom) setCoords(start1, end1, start2, end2, [], [start1, end1, start2, end2, idy])
+        else setCoords(start2, end2, start1, end1, [], [start2, end2, start1, end1, idy])
+        d3.event.stopPropagation();
+      });
+    }
+  }
+
+  function naturalCompare(a, b) {
+      var ax = [], bx = [];
+
+      a.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { ax.push([$1 || Infinity, $2 || ""]) });
+      b.replace(/(\d+)|(\D+)/g, function(_, $1, $2) { bx.push([$1 || Infinity, $2 || ""]) });
+
+      while(ax.length && bx.length) {
+          var an = ax.shift();
+          var bn = bx.shift();
+          var nn = (an[0] - bn[0]) || an[1].localeCompare(bn[1]);
+          if(nn) return nn;
+      }
+
+      return ax.length - bx.length;
+  }
+
+
+  function showInteractionsinfo(align) {
+    clearInfo();
+    info_title.text('Pairwise alignment');
+    start1 = align[0], end1 = align[1], start2 = align[2], end2 = align[3], idy = align[4];
+    block1 = [start1, end1, idy / 100];
+    block2 = [start2, end2, idy / 100];
+    info.append('p')
+    .text(chr1 + ': ' + formatCoord(start1) + '-' + formatCoord(end1) + ' aligned to ' +
+    (chr1 == chr2 ? '' : chr2 + ': ') + formatCoord(start2) + '-' + formatCoord(end2) + ' (IDY ' + (idy * 100) + '%) ');
+
+
+  }
+
+  function formatCoord(num, unit) {
+    str = num.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g,'$1 ');
+    str += (unit ? '<span class="rhs">&nbsp;</span>' + unit : '');
+    return str;
+  }
+
+  function getPolygonPoints(block) {
+    minExtent1 = xChr1Scale.range()[0];
+    maxExtent1 = xChr1Scale.range()[1];
+    minExtent2 = xChr2Scale.range()[0];
+    maxExtent2 = xChr2Scale.range()[1];
+    points = [];
+    points.push({"x": Math.max(minExtent1, xChr1Scale(block[0])), "y": 0});
+    points.push({"x": Math.max(minExtent2, xChr2Scale(block[2])), "y": 40});
+    points.push({"x": Math.min(maxExtent2, xChr2Scale(block[3])), "y": 40});
+    points.push({"x": Math.min(maxExtent1, xChr1Scale(block[1])), "y": 0});
+    return points;
+  }
+
+  function getItemStart(block, xScale) {
+    minExtent = xScale.range()[0];
+    return Math.max(minExtent, xScale(block[0]))
+  }
+
+  function getItemEnd(block, xScale) {
+    maxExtent = xScale.range()[1];
+    return Math.min(maxExtent, xScale(block[1]))
+  }
+
+  function getItemWidth(block, xScale) {
+    return getItemEnd(block, xScale) - getItemStart(block, xScale);
+  }
+
+  function getCoordsFromURL() {
+    var query = document.location.search;
+    query = query.split('+').join(' ');
+
+    var params = {},
+    tokens,
+    re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(query)) {
+      params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+    if (params && params.chr1 && params.chr2 ) {
+      chr1 = params.chr1, chr2 = params.chr2;
+    }
+    if (params && params.chr1 && params.chr2 && params.start1 && params.end1 && params.start2 && params.end2) {
+      startPos1 = parseInt(params.start1),
+      lastPos1 = parseInt(params.end1),
+      startPos2 = parseInt(params.start2),
+      lastPos2 = parseInt(params.end2);
+        
+      window.location.reload(true);
+      //setCoords(parseInt(params.start1), parseInt(params.end1, parseInt(params.start2), parseInt(params.end2), params.chr1, params.chr2);
+      //display();
+    }
+    return params;
+  }
+
+  function clearInfo() {
+    info.selectAll('p').remove();
+    info.selectAll('span').remove();
+    info.selectAll('a').remove();
+    info.selectAll('div').remove();
+  }
+
+  function setCoords(startCoord1, endCoord1, startCoord2, endCoord2, block, alignment) {
+    if (startCoord1 && endCoord1 && startCoord2 && endCoord2) {
+      startCoord1 = Math.max(xFocus(startCoord1) - 1, x.range()[0])
+      endCoord1 = Math.min(xFocus(endCoord1) + 1, x.range()[1])
+      startCoord2 = Math.max(xFocus2(startCoord2) - 1, x2.range()[0])
+      endCoord2 = Math.min(xFocus2(endCoord2) + 1, x2.range()[1])
+      context.select(".brush").call(params1.brush.move, [startCoord1, endCoord1]);
+      focus.call(params1.zoom.transform, d3.zoomIdentity
+                          .scale(width / (endCoord1 - startCoord1))
+                          .translate(-startCoord1, 0));
+      context2.select(".brush").call(params2.brush.move, [startCoord2, endCoord2]);
+      focus2.call(params2.zoom.transform, d3.zoomIdentity
+                          .scale(width / (endCoord2 - startCoord2))
+                          .translate(-startCoord2, 0));
+    }
+    if (block && block.length > 1) {
+      selectBlock(block, chr1, chr2, x);
+    }
+    else if (alignment && alignment.length > 1) {
+      showBlocks(alignment, chr1, chr2);
+      showInteractionsinfo(alignment);
+    }
+  }
+
+  function selectBlock(block, chr1, chr2, x) {
+    showBlocks(block, chr1, chr2);
+    showSDinfo(block, chr1, chr2, x);
+  }
+
+  function showHelp(){
+    document.getElementById('help_bg').style.display = "";
+  }
+    function hideHelp(){
+      document.getElementById('help_bg').style.display = "none";
+    }
+</script>
