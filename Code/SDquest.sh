@@ -82,4 +82,5 @@ mv $outdir/CombineLine.txt $outdir/tmp/
 mv $outdir/EndpointsLine.txt $outdir/tmp/
 mv $outdir/SCN_LastzResult_500NonCR_NewExtendPec50.txt $outdir/tmp/
 mv $outdir/ClustersLine.txt $outdir/tmp/
+rm -r $outdir/tmp
 echo end SDquest analysis
