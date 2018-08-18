@@ -108,7 +108,7 @@ public class changeFormatPairwise {
 				}
 			}
 			in.close(); writer.close(); writerBG.close();
-			System.out.println("Pairwise SDs can be found in Pairwise_SDs.txt!");
+			System.out.println("Pairwise SDs can be found in " + outdir + "/Pairwise_SDs.txt!");
 		}catch (FileNotFoundException e) {
             e.printStackTrace();
         }

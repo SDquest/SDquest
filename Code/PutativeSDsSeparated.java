@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class PutativeSDsSeparated {//
-	
+
 	public static void main(String args[]){
-		try{	
+		try{
 			int number=Integer.parseInt(args[0]);
 			Scanner in=new Scanner(new File(args[1]));  // AllSegsOfSCN_CRRemoved.fasta
 			Scanner inM=new Scanner(new File(args[2]));  // AllSegsOfSCN_CRMasked.fasta
@@ -20,7 +20,7 @@ public class PutativeSDsSeparated {//
 				segs.add(in.nextLine()); segsM.add(inM.nextLine());
 			}
 			in.close(); inM.close();
-			
+
 			int size=segs.size()/(2*number); int index=0;
 			for(int i=1;i<number;i++){
 				writer = new BufferedWriter(new FileWriter(new File(outdir, "AllSegsOfSCN_CRRemoved"+i+".fasta")));
@@ -29,11 +29,11 @@ public class PutativeSDsSeparated {//
 					writer.write(segs.get(index)); writer.newLine();
 					writerM.write(segsM.get(index)); writerM.newLine(); index++;
 					writer.write(segs.get(index)); writer.newLine();
-					writerM.write(segsM.get(index)); writerM.newLine(); index++;					
+					writerM.write(segsM.get(index)); writerM.newLine(); index++;
 				}
 				writer.close(); writerM.close();
 			}
-			
+
 			writer = new BufferedWriter(new FileWriter(new File(outdir, "AllSegsOfSCN_CRRemoved"+number+".fasta")));
 			writerM = new BufferedWriter(new FileWriter(new File(outdir, "AllSegsOfSCN_CRMasked"+number+".fasta")));
 			while(index<segs.size()){
@@ -43,14 +43,14 @@ public class PutativeSDsSeparated {//
 				writerM.write(segsM.get(index)); writerM.newLine(); index++;
 			}
 			writer.close(); writerM.close();
-		    
+
 //			System.out.println("end Seperated 2!   ");
-			
+
 		}catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 		catch(Exception e){
-			
+
 		}
 	}
 

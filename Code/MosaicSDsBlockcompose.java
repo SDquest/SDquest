@@ -25,7 +25,7 @@ public class MosaicSDsBlockcompose {
 				}
 			}
 			
-			BufferedWriter writer=new BufferedWriter(new FileWriter(new File(args[1])));
+			BufferedWriter writer=new BufferedWriter(new FileWriter(new File(args[1])));  // MosaicSDs_SDblockIndexes.txt
 			writer.write("chr   start   end   SDblocksIndexes"); writer.newLine(); 
 			
 			in = new Scanner(new File(args[2])); in.nextLine();
@@ -113,7 +113,7 @@ public class MosaicSDsBlockcompose {
 				}
 			}
 			writer.close();
-			System.out.println("end mosaicSD analysis! SDblock indexes of Mosaic SDs can be found in MosaicSDs_SDblockIndexes.txt");
+			System.out.println("end mosaicSD analysis! SDblock indexes of Mosaic SDs can be found in " + args[1]);
 			
 		}catch (FileNotFoundException e) {
             e.printStackTrace();

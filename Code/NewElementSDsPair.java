@@ -284,10 +284,10 @@ public class NewElementSDsPair {
 			}
 			in.close();
 //			System.out.println(index);
-	
-			Scanner inL = new Scanner(new File("length.fasta"));
-			in=new Scanner(new File(args[4])); in.nextLine();  // SCN_LastzResult_500NonCR_NewExtendPec50.txt
-			String outdir = args[5];
+
+			Scanner inL = new Scanner(new File(args[4]));
+			in=new Scanner(new File(args[5])); in.nextLine();  // SCN_LastzResult_500NonCR_NewExtendPec50.txt
+			String outdir = args[6];
 			BufferedWriter writerE = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseEqual.fasta")));
 			BufferedWriter writerU = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseUnequal.fasta")));
 			BufferedWriter writerLE = new BufferedWriter(new FileWriter(new File(outdir, "ElementSDs_pairwiseLengthEqual.fasta")));
