@@ -6,15 +6,15 @@
 
 </style>
 <!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="aux/bootstrap.min.css">
 
 <!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<link rel="stylesheet" href="aux/bootstrap-theme.min.css">
 <link rel="stylesheet" type="text/css" href="aux/sdquest.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="aux/jquery.min.js"></script>
+<script src="aux/bootstrap.min.js"></script>
 <script src="aux/circos.js"></script>
 <script>
 /**
@@ -905,7 +905,7 @@ function brushed(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, conte
     info_title.text('Mosaic SD: ' + formatCoord(block[0]) + '-' + formatCoord(block[1]));
     var mainPanel = info.append('div')
     .attr('class', 'panel-group').attr('id', 'SDinfo');
-    link = 'graph.html?chr=' + curChrom + '&start=' + block[0] + '&end=' + block[1];
+    link = 'bp_graph/graph_hg19.html?chr=' + curChrom + '&start=' + block[0] + '&end=' + block[1];
     sd_info = mosaic_info[curChrom][block[0] + '-' + block[1]];
 
     mainPanel.append('a').text('Complexity')
@@ -930,14 +930,14 @@ function brushed(xScale, xFocusScale, xLayerAxis, data, genes, focusLayer, conte
     .text(': ' + sd_info[1]);
     $('[data-toggle="tooltip"]').tooltip();
     mainPanel.append('span').text('. ');
-    /*mainPanel.append('a')
+    mainPanel.append('a')
     .attr('href', link)
     .attr('style', 'font-size:14px')
     .attr('target', '_blank')
     .text('Click');
     mainPanel.append('span')
     .attr('style', 'font-size:14px')
-    .text(' to see in the breakpoint graph.');*/
+    .text(' to see in the breakpoint graph.');
     mainPanel.append('br');
     mainPanel.append('br');
     mainPanel.append('p')
